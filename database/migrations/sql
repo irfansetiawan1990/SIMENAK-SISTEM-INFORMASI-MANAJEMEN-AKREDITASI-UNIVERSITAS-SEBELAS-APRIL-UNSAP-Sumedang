@@ -1,0 +1,1448 @@
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Daftarpsunipengelolaps extends Migration
+{
+   
+    Schema::create('daftar_ps_diunit_pengelola_ps', function (Blueprint $table) {
+ 
+        'id_ps',
+        'jenis_program',
+        'nama_ps',
+        'status',
+        'no_tgl_sk',
+        'tgl_kadaluarsa',
+        'jml_mhs_saat_ts'
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('users');
+    }
+}
+
+
+
+
+
+
+
+
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Dosenpembimbingutamatugasakhir extends Migration
+
+{
+   
+    Schema::create(dosen_pembimbing_utama_tugas_akhir', function (Blueprint $table) {
+   
+    'id_dosen_pembimbing',
+    'nama_dosen',
+    'ts2',
+    'ts1',
+    'ts',
+    'ts_2',
+    'ts_1',
+    'ts_',
+    'rata_rata',
+    'jumlah_bimbingan_semester'
+    
+}
+
+
+
+
+
+
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Dosenpraktisi extends Migration
+
+{
+    {
+   
+    Schema::create(dosen_praktisi', function (Blueprint $table) {
+    protected $fillable 
+    
+        'id_dosen_praktisi','nama_dosen','nidk','perusahaan','pend_tertinggi','bid_keahlian','sertifikat','matkul_yg_diampu','bobot_kredit'];
+    
+        }
+
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Dosentdktetap extends Migration
+
+{
+   
+    Schema::create(dosen_tdk_tetap', function (Blueprint $table) {
+    protected $fillable 
+    
+        'id_dosen_tdk_tetap','nama_dosen','pen_pas_sarjana','bid_keahlian','jabatan_akademik','serdikprof','serkomprof1','serkomprof2','kesesuaian_matkul'];
+    
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Dosentetappt extends Migration
+
+{
+   
+    Schema::create(dosen_tetap_pt', function (Blueprint $table) {
+    protected $fillable 
+    
+        'id_dosen_tetap_pt','nama_dosen','nidn','magister_terapan_spesialis','doktor_terapan_spesialis','bidang_keahlian','kesesuaian_inti_ps','jabatan_akademik','sertifikat_pendik_prof','sertifikat_kompetensi_prof','matkul_pslain'];
+    
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Dtpspengelolaps extends Migration
+
+{
+   
+    Schema::create('daftar_ps_diunit_pengelola_ps', function (Blueprint $table) {
+    protected $primaryKey  'id_ps';
+    protected $fillable  
+    
+        'id_ps','jenis_program','nama_ps','status','no_tgl_sk','tgl_kadaluarsa,jml_mhs_saat_ts'];
+    
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Ewmp extends Migration
+
+{
+   
+    Schema::create('ewmp_dosen', function (Blueprint $table) {
+    protected $primaryKey  'id_ewmp';
+    protected $fillable 
+
+        'id_ewmp','nama_dosen','dtps','ps_akreditasi','ps_dalampt','ps_luarpt','penelitian','pkm','tugas_tambahan','jml_sks','rata_rata_persemester']
+    Schema::create('ewmp_dosen', function (Blueprint $table) {
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Spatie\Permission\Traits\HasRoles;
+
+class Identitas extends Migration
+
+{
+   
+    Schema::create(tb_identitas"; //meh teu make , function (Blueprint $table) {
+    protected $primaryKey  'id';
+    protected $fillable 
+
+             "nama_prodi",
+           "jenis_program",
+           "peringkat_akre_ps",
+           "no_sk_bnpt",
+           "tgl_kadaluarsa",
+           "nama_unit_pengelola",
+           "nama_pt",
+           "alamat",
+           "kota",
+           "kabupaten",
+           "no_tlp",
+           "email",
+           "website",
+           "ts"
+    ];
+      
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Ipklulusan extends Migration
+
+{
+   
+    Schema::create('ipk_lulusan', function (Blueprint $table) {
+    protected $primaryKey  'id_ipk_lulusan';
+    protected $fillable 
+    
+
+        'id_ipk_lulusan',
+        'tahun_lulus',
+        'jml_lulusan',
+        'min',
+        'rata_rata',
+        'maks'
+        ];
+
+        
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Karyailmiahdtpsdisitasi extends Migration
+
+{
+   
+    Schema::create('karya_ilmiah_dtps_disitasi', function (Blueprint $table) {
+    protected $fillable  
+
+                'id_karya_ilmiah',
+                'nama_dosen',
+                'judul_artikel_disitasi',
+                'jumlah_sitasi'
+    ];
+    
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Karyailmiahmhsdisitasi extends Migration
+
+{
+   
+    Schema::create('karya_ilmiah_mhs_yg_disitasi', function (Blueprint $table) {
+    protected $fillable  
+        'id_mhs_yg_disitasi',
+                'nama_mhs',
+                'judul_artikel_yg_disitasi',
+                'jml_sitasi'];
+        
+
+
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Kcprpembelajaran extends Migration
+
+{
+   
+    Schema::create('kcpr_pembelejaran', function (Blueprint $table) {
+    protected $fillable 
+    
+
+        'id_kcpr_pembelajaran',
+        'semester',
+        'kode_mata_kuliah',
+        'nama_matkul',
+        'matkul_kompetensi',
+        'kuliah_responsi_tutorial',
+        'seminar',
+        'praktikum_praktik_lapangan',
+        'konversi_kejam',
+        'sikap',
+        'pengetahuan',
+        'keterampilan_umum',
+        'keterampilan_khusus',
+        'dokumen_rencana_pembelajaran',
+        'unit_penyelenggara_pembelajara',
+        'unit_penyelenggara'
+        ]
+
+    
+
+
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Kepuasanmhs extends Migration
+
+{
+   
+    Schema::create('kepuasan_mhs', function (Blueprint $table) {
+    protected $fillable 
+    
+
+        'id_kepuasanmhs',
+        'aspek_yg_diukur',
+        'tingkat_kepuasan',
+        'rencana_tindak_lanjut'
+
+    ]
+
+    protected $fillable  false;
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Kepuasanpenggunalulusan extends Migration
+
+{
+   
+    Schema::create('kepuasan_pengguna_lulusan', function (Blueprint $table) {
+    protected $primaryKey 'id_pengguna_lulusan';
+   protected $fillable 
+   
+
+        'id_pengguna_lulusan',
+        'jenis_kemampuan',
+        'sangat_baik',
+    'baik',
+    'cukup',
+    'kurang',
+        'rencana_tindak_lanjut_ps'
+   ] ;
+   protected $timestamps  false;
+}
+
+c<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Kerjasamapendidikan extends Migration
+
+{
+   
+    Schema::create('kerjasama_pendidikan', function (Blueprint $table) {
+        protected $primaryKey  'id_kerjasamapendidikan';
+        protected $fillable  
+
+
+        'id_kerjasamapendidikan',
+        'lembaga_mitra',
+        'judul_kegiatan_kerja',
+        'manfaat',
+        'tingkat',
+        'waktu_durasi',
+        'bukti_kerjasama',
+        'tahun_berakhir'
+        ];
+        
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Kerjasamapenelitian extends Migration
+
+{
+   
+    Schema::create('kerjasama_pkm', function (Blueprint $table) {
+        protected $primaryKey  'id_kjs_pkm';
+        protected $fillable  
+
+
+        'id_kjs_pkm',
+        'lembaga_mitra',
+        'judul_kegiatan_kerja',
+        'tingkat',
+        'manfaat',
+        'tingkat',
+        'waktu_durasi',
+        'bukti_kerjasama',
+        'tahun_berakhir'
+        ];
+        
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Kerjasamapkm extends Migration
+
+{
+   
+    Schema::create('kerjasama_pkm', function (Blueprint $table) {
+        protected $primaryKey  'id_kerjasamapendidikan';
+        protected $fillable  
+
+
+        'id_kerjasamapendidikan',
+        'lembaga_mitra',
+        'judul_kegiatan_kerja',
+        'manfaat',
+        'tingkat',
+        'waktu_durasi',
+        'bukti_kerjasama',
+        'tahun_berakhir'
+        ];
+        
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Kesesuaianbidkerlulusan extends Migration
+
+{
+   
+    Schema::create('kesesuaian_bidang_kerja_lulusan', function (Blueprint $table) {
+        protected $primaryKey  'id_kesesuaian_bidang_kerja_lulusan';
+        protected $fillable  
+
+
+        'id_kesesuaian_bidang_kerja_lulusan,'
+        'tahun_lulus',
+        'jml_lulusan',
+        'jml_lulusan_terlacak',
+        'jml_lulusan_terlacak_rendah',
+        'jml_lulusan_terlacak_sedang',
+        'jml_lulusan_terlacak_tinggi',
+        ];
+
+        
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Luaranpkmdtps1 extends Migration
+
+{
+   
+    Schema::create('luaran_pkm_dtps_bag1_HKI', function (Blueprint $table) {
+        protected $primaryKey  'id_pkm_dtps_bag1';
+        protected $fillable  
+
+
+        'id_pkm_dtps_bag1',
+        'luaran_pkm',
+        'tahun',
+        'keterangan',
+        ];
+
+        
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Luaranpkmdtps2 extends Migration
+
+{
+   
+    Schema::create('luaran_pkm_dtps_bag2_HKI', function (Blueprint $table) {
+        protected $primaryKey  'id_pkm_dtps_bag1';
+        protected $fillable  
+
+
+        'id_pkm_dtps_bag2_HKI',
+        'luaran_pkm,'
+        'tahun',
+        'keterangan',
+        ];
+
+        
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Luaranpkmdtps3 extends Migration
+
+{
+   
+    Schema::create('luaran_pkm_dtps_bag3_tekno', function (Blueprint $table) {
+        protected $primaryKey  'id_pkm_dtps_bag3';
+        protected $fillable  
+
+
+        'id_pkm_dtps_bag3',
+        'luaran_pkm,'
+        'tahun',
+        'keterangan',
+        ];
+
+        
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Luaranpkmdtps4 extends Migration
+
+{
+   
+    Schema::create('luaran_pkm_dtps_bag4_ebook', function (Blueprint $table) {
+        protected $primaryKey  'id_pkm_dtps_bag4';
+        protected $fillable  
+
+
+        'id_pkm_dtps_bag4',
+        'luaran_pkm,'
+        'tahun',
+        'keterangan',
+        ];
+
+        
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Luaranpkmmhs1 extends Migration
+
+{
+   
+    Schema::create('luaran_pkm_mhs_bag1', function (Blueprint $table) {
+        protected $primaryKey  'id_luaran_penelitian_bag1_mhs';
+        protected $fillable  
+
+
+        'id_luaran_penelitian_bag1_mhs',
+        'luaran_pkm',
+        'tahun',
+        'keterangan'
+        ];
+
+        
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Luaranpkmmhs2 extends Migration
+
+{
+   
+    Schema::create('luaran_pkm_mhs_bag2', function (Blueprint $table) {
+        protected $primaryKey  'id_luaran_penelitian_bag2_mhs';
+        protected $fillable  
+
+
+        'id_luaran_penelitian_bag2_mhs',
+        'luaran_pkm',
+        'tahun',
+        'keterangan'
+        ];
+
+        
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Luaranpkmmhs3 extends Migration
+
+{
+   
+    Schema::create('luaran_pkm_mhs_bag3', function (Blueprint $table) {
+        protected $primaryKey  'id_luaran_penelitian_bag3_mhs';
+        protected $fillable  
+
+
+        'id_luaran_penelitian_bag3_mhs',
+        'luaran_pkm',
+        'tahun',
+        'keterangan'
+        ];
+
+        
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Luaranpkmmhs4 extends Migration
+
+{
+   
+    Schema::create('luaran_pkm_mhs_bag4', function (Blueprint $table) {
+        protected $primaryKey  'id_luaran_penelitian_bag4_mhs';
+        protected $fillable  
+
+
+        'id_luaran_penelitian_bag4_mhs',
+        'luaran_pkm',
+        'tahun',
+        'keterangan'
+        ];
+
+        
+}
+
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Mahasiswa extends Migration
+
+{
+
+    Schema::create('tb_mhs', function (Blueprint $table) {
+    protected $primaryKey  'id_mhs';
+    protected $fillable  
+        'id_mhs','nama','nim','prodi'];
+    public        $timestamps  false;
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Masastudilulusand3 extends Migration
+
+{
+   
+    Schema::create('masa_studi_lulusan_d3', function (Blueprint $table) {
+    protected $primaryKey  'id_studi_lulusan_d3';
+    protected $fillable 
+    
+
+                'id_studi_lulusan_d3',
+                'tahun_masuk',
+                'jml_mhs_diterima',
+                'akhir_ts4',
+                'akhir_ts3',
+                'akhir_ts2',
+                'akhir_ts1',
+                'akhir_ts',
+                'jml_lulusan_sd_akhir_ts',
+                'rata_rata_masa_studi'
+    ];
+    public $timestamps  falsel;
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Masastudilulusans1 extends Migration
+
+{
+   
+    Schema::create('masa_studi_lulusan_s1', function (Blueprint $table) {
+    protected $primaryKey  'id_studi_lulusan_s1';
+    protected $fillable 
+    
+
+                'id_studi_lulusan_s1',
+                'tahun_masuk',
+                'jml_mhs_diterima',
+                'akhir_ts6',
+                'akhir_ts5',
+                'akhir_ts4',
+                'akhir_ts3',
+                'akhir_ts2',
+                'akhir_ts1',
+                'akhir_ts',
+                'jml_lulusan_sd_akhir_ts',
+                'rata_rata_masa_studi'
+    ];
+    public $timestamps  falsel;
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Mhsasing extends Migration
+
+{
+   
+    Schema::create('mhs_asing', function (Blueprint $table) {
+    protected $primaryKey  'id_mhs_asing';
+    protected $fillable 
+    
+
+        'id_mhs_asing',
+        'ps_program_studi',
+        'aktif_ts_2',
+        'aktif_ts_1',
+        'aktif_ts',
+        'full_ts_2',
+        'full_ts_1',
+        'full_ts',
+        'part_ts_2',
+        'part_ts_1',
+        'part_ts_2'
+    ];
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Penelitiandtps extends Migration
+
+{
+   
+    Schema::create('penelitian_dtps', function (Blueprint $table) {
+    protected $primaryKey  'id_penelitian_dtps';
+    protected $fillable 
+    
+
+        'id_penelitian_dtps',
+        'sumber_pembiayaan',
+        'ts2',
+        'ts1',
+        'ts',
+        'jumlah'
+    ];
+    
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Penelitiandtpsmhs extends Migration
+
+{
+   
+    Schema::create('penelitian_dtps_mhs', function (Blueprint $table) {
+    protected $primaryKey  'id_penelitian_dtps_mhs';
+    protected $fillable 
+    
+
+        'id_penelitian_dtps_mhs',
+        'nama_dosen',
+        'tema_roadmap',
+        'nim',
+        'judul_kegiatan',
+        'tahun'
+    ];
+    
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Pengakuanrekognisi extends Migration
+
+{
+           
+            Schema::create('rekognisidtps', function (Blueprint $table) {
+            protected $primaryKey  'id_rekognisi_dtps';
+            protected $fillable 
+           
+
+                        'id_pengakuan',
+                        'rekognisi_bukti',
+                        'wilayah',
+                        'nasional',
+                        'internasional',
+                        'tahun'
+
+           ];
+
+           
+
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Penggunaandana extends Migration
+
+{
+   
+    Schema::create('penggunaan_dana', function (Blueprint $table) {
+    protected $primaryKey 'id_pengunaan_dana';
+    protected $fillable 
+    
+
+        'id_pengunaan_dana',
+        'ts2_pengelola',
+        'ts1_pengelola',
+        'ts_pengelola',
+        'rata-rata_pengelola',
+        'ts2_ps',
+        'ts1_ps',
+        'ts_ps'
+        'rata-rata_ps'
+    ];
+    
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Pkmdtps extends Migration
+
+{
+   
+    Schema::create('pkm_dtps', function (Blueprint $table) {
+    protected $primaryKey  'id_pkm_dtps';
+    protected $fillanle 
+    
+
+        'id_pkm_dtps',
+        'sumber_pembiayaan',
+        'ts2',
+        'ts1',
+        'ts',
+        'jumlah'
+    ];
+    
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Pkmdtpsmhs extends Migration
+
+{
+   
+    Schema::create('pkm_dtps_mhs', function (Blueprint $table) {
+    protected $primaryKey  'id_pkm_dtps_mhs';
+    protected $fillable 
+    
+
+        'id_pkm_dtps_mhs',
+        'nama_dosen',
+        'tema_pkm_roadmap',
+        'nama_mhs',
+        'judul_kegiatan',
+        'tahun'
+
+    ] ;
+    
+}
+
+
+
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Pkmpembelajaran extends Migration
+
+{
+   
+    Schema::create('pkm_pembelajaran', function (Blueprint $table) {
+    protected $primaryKey  'id_pkm_pembelajaran';
+    protected $fillable 
+    
+
+        'id_pkm_pembelajaran',
+        'judul_pkm',
+        'nama_dosen',
+        'matkul',
+        'bentuk_integrasi',
+        'tahun'
+    ];
+    
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Prestasiakademikmhs extends Migration
+
+{
+   
+    Schema::create('prestasi_akademik_mhs', function (Blueprint $table) {
+    protected $primaryKey  'id_prestasi_akademik_mhs';
+    protected $fillable 
+   
+
+        'id_prestasi_akademik_mhs',
+        'nama_kegiatan',
+        'waktu_perolehan',
+        'lokal',
+        'nasional',
+        'internasional',
+        'prestasi'
+   ];
+
+   
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Prestasinonakademikmhs extends Migration
+
+{
+   
+    Schema::create('prestasi_non_akademik_mhs', function (Blueprint $table) {
+    protected $primaryKey  'id_prestasi_non_akademik_mhs';
+    protected $fillable 
+   
+
+        'id_prestasi_akademik_non_mhs',
+        'nama_kegiatan',
+        'waktu_perolehan',
+        'lokal',
+        'nasional',
+        'internasional',
+        'prestasi_yg_dicapai'
+   ];
+
+   
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Produkdtpsadopsi extends Migration
+
+{
+           
+
+            Schema::create('produk_dtps_yg_diadopsi', function (Blueprint $table) {
+            protected $primaryKey  'id_produk';
+            protected $fillable 
+           
+
+                        'id_produk',
+                        'nama_dosen',
+                        'nama_produk',
+                        'deskripsi_produk',
+                        'bukti',
+                        'tahun'
+           ];
+
+           
+        }
+
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Produkdtpsadopsimasyarakat extends Migration
+
+{
+           
+            Schema::create('produk_dtps_mhs_diadopsi', function (Blueprint $table) {
+            protected $primaryKey  'id_produk_mhs';
+            protected $fillable 
+           
+
+                        'id_produk_mhs',
+                        'nama_mhs',
+                        'nama_produk',
+                        'deskripsi_produk',
+                        'bukti',
+                        'tahun'
+           ];
+
+           
+
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Publikasiilmiahdtps extends Migration
+
+{
+           
+            Schema::create('publikasi_ilmiah_dtps', function (Blueprint $table) {
+            protected $primaryKey  'id_publikasi';
+            protected $fillable 
+           
+
+                        'id_publikasi_ilmiah_dtps',
+                        'jenis_publikasi',
+                        'ts2',
+                        'ts1',
+                        'ts',
+                        'jumlah'
+
+           ];
+
+           
+
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Publikasiilmiahmhs extends Migration
+
+{
+           
+            Schema::create('publikasi_ilmiah_mhs', function (Blueprint $table) {
+            protected $primaryKey  'id_publikasi_ilmiah_mhs';
+            protected $fillable 
+           
+
+                        'id_publikasi_ilmiah_mhs',
+                        'jenis_publikasi',
+                        'ts2',
+                        'ts1',
+                        'ts',
+                        'jumlah'
+
+           ];
+
+           
+
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Publikasiilmiahmhspsterapan extends Migration
+
+{
+           
+            Schema::create('publikasi_ilmiah_mhs_ps_terapan', function (Blueprint $table) {
+            protected $primaryKey  'id_publikasi_ilmiah_mhs_ps_terapan';
+            protected $fillable 
+           
+
+                        'id_publikasi_ilmiah_mhs_ps_terapan',
+                        'jenis_publikasi',
+                        'ts2',
+                        'ts1',
+                        'ts',
+                        'jumlah'
+
+           ];
+
+           
+
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Publikasipamerandtps extends Migration
+
+{
+           
+            Schema::create('publikasi_pameran_dtps', function (Blueprint $table) {
+            protected $primaryKey  'id_publikasi_pameran_dtps';
+            protected $fillable 
+           
+
+                        'id_publikasi_pameran_dtps',
+                        'jenis_publikasi',
+                        'ts2',
+                        'ts1',
+                        'ts',
+                        'jumlah'
+
+           ];
+
+           
+
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Ref8E2 extends Migration
+
+{
+           
+            Schema::create('ref_8e2', function (Blueprint $table) {
+            protected $primaryKey  'id_ref8e2';
+            protected $fillable 
+           
+
+                        'id_ref8e2',
+                        'tahun_lulus',
+                        'jumlah_lulusan',
+                        'jumlah_tanggapan'
+
+           ];
+
+           
+
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Rekognisidtps extends Migration
+
+{
+           
+            Schema::create('rekognisidtps', function (Blueprint $table) {
+            protected $primaryKey  'id_rekognisi_dtps';
+            protected $fillable 
+           
+
+                        'id_rekognisi_dtps',
+                        'nama_dosen',
+                        'bidang_keahlian',
+                        'rekognisi_bukti',
+                        'ts',
+                        'jumlah'
+
+           ];
+
+           
+
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Seleksimhsbaru extends Migration
+
+{
+   
+    Schema::create('seleksi_mhs_baru', function (Blueprint $table) {
+    protected $primaryKey  'id_seleksi';
+    protected $fillable 
+    
+
+        'id_seleksi_mhs',
+        'tahun_akademik',
+        'dayatampung',
+        'pendaftar',
+        'lulus_seleksi',
+        'reguler_baru',
+        'transfer_baru',
+        'reguler_aktif',
+        'transfer_aktif'
+    ];
+    
+
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Tempatkerjalulusan extends Migration
+
+{
+   
+    Schema::create('tempat_kerja_lulusan', function (Blueprint $table) {
+    protected $primaryKey  'id_seleksi';
+    protected $fillable 
+    
+
+        'id_tempat_kerja_lulusan',
+        'tahun_lulus',
+        'jml_lulusan',
+        'jml_lulusan_terlacak',
+        'lokal',
+        'nasional',
+        'internasional'
+
+    ];
+    
+
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Visimisi extends Migration
+
+{
+   
+    Schema::create('vmts', function (Blueprint $table) {
+    Protected $fillable  
+        'id','visimisi'];
+    
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Waktutunggululusand3 extends Migration
+
+{
+   
+    Schema::create('waktu_tunggu_lulusan_d3', function (Blueprint $table) {
+    protected $primaryKey  'id_tunggu_d3';
+    protected $fillable 
+    
+
+        'id_tunggu_d3',
+        'tahun_lulus',
+        'jml_lulusan',
+        'jml_terlacak',
+        'jml_lulusan_dipesan',
+        'wt1',
+        'wt2',
+        'wt3',
+
+    ];
+    
+
+}
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Waktutunggululusans1 extends Migration
+
+{
+   
+    Schema::create('waktu_tunggu_lulusan_d3', function (Blueprint $table) {
+    protected $primaryKey  'id_tunggu_s1';
+    protected $fillable 
+    
+
+        'id_tunggu_s1',
+        'tahun_lulus',
+        'jml_lulusan',
+        'jml_terlacak',
+        'wt1',
+        'wt2',
+        'wt3',
+
+    ];
+    public $timestamps  false<?php
