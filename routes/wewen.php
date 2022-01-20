@@ -13,7 +13,6 @@ use App\Http\Controllers\DosentetapptController;
 use App\Http\Controllers\EwmpController;
 use App\Http\Controllers\IdentitasController;
 use App\Http\Controllers\IpklulusanController;
-//use App\Http\Controllers\KaryailmiahdtpsdisitasiController;
 use App\Http\Controllers\KaryailmiahmhsdisitasiController;
 use App\Http\Controllers\KcprpembelajaranController;
 use App\Http\Controllers\KepuasanmhsController;
@@ -56,6 +55,7 @@ use App\Http\Controllers\SeleksimhsbaruController;
 use App\Http\Controllers\TempatkerjalulusanController;
 use App\Http\Controllers\Waktutunggululusand3Controller;
 use App\Http\Controllers\Waktutunggululusans1Controller;
+use App\Http\Controllers\KepuasanpenggunaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,7 +89,6 @@ Route::middleware('auth')->resource('HomeController',HomeController::class);
 Route::middleware('auth')->resource('IdentitasController',IdentitasController::class);
 Route::middleware('auth')->resource('IpklulusanController',IpklulusanController::class);
 Route::middleware('auth')->resource('KaryailmiahdtpsdisitasiController',KaryailmiahdtpsdisitasiController::class);
-//Route::middleware('auth')->resource('KaryailmiahmhsdisitasiController',KaryailmiahmhsdisitasiController::class);
 Route::middleware('auth')->resource('KcprpembelajaranController',KcprpembelajaranController::class);
 Route::middleware('auth')->resource('KepuasanmhsController',KepuasanmhsController::class);
 Route::middleware('auth')->resource('KepuasanpenggunalulusanController',KepuasanpenggunalulusanController::class);
@@ -133,4 +132,5 @@ Route::middleware('auth')->resource('SeleksimhsbaruController',SeleksimhsbaruCon
 Route::middleware('auth')->resource('TempatkerjalulusanController',TempatkerjalulusanController::class);
 Route::middleware('auth')->resource('VisimisiController',VisimisiController::class);
 Route::middleware('auth')->resource('Waktutunggululusand3Controller',Waktutunggululusand3Controller::class);
+Route::middleware('auth')->resource('Waktutunggululusans1Controller',Waktutunggululusans1Controller::class);
 Route::middleware('auth')->resource('Waktutunggululusans1Controller',Waktutunggululusans1Controller::class);

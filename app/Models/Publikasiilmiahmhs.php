@@ -17,7 +17,9 @@ class Publikasiilmiahmhs extends Model
 	   		'ts2',
 	   		'ts1',
 	   		'ts',
-	   		'jumlah'
+	   		'jumlah',
+	   		'prodi_id',
+	   		'tahun'
 	   
 	   ];
 

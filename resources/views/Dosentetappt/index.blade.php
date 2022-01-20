@@ -24,8 +24,9 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Dosen Tetap PT</h3>
+          <h3 class="card-title">Data Dosen Tetap PT</h3>
           <div class="card-tools">
+
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
               <i class="fas fa-minus"></i>
             </button>
@@ -75,10 +76,7 @@
    
                                   <div class="form-group">
                                       <label for="">Pendidikan Pasca Sarjana</label>
-                                      <select name="pendidikan_pasca_sarjana" id="pendidikan_pasca_sarjana" class="form-control">
-                                      <option value="{Magister/ Magister Terapan/ Spesialis">Magister/ Magister Terapan/ Spesialis</option>
-                                       <option value="{Doktor/ Doktor Terapan/ Spesialis">Doktor/ Doktor Terapan/ Spesialis</optio}n>
-                                      </select>
+                                     <input type="text" name="pendidikan_pasca_sarjana" class="form-control">
                                   </div>
                              
                                     <div class="form-group">
@@ -105,9 +103,6 @@
                                       <option value="Guru Besar/Professor">Guru Besar/Professor</option>
                                       </select>
                                   </div>
-                          
-
-
 
                                   <div class="form-group">
                                       <label for="">Sertifikat Pendidik Profesional</label>
@@ -115,19 +110,25 @@
                                   </div>
                                     <div class="form-group">
                                       <label for="">Sertifikat Kompetensi Profesional</label>
-                                      <input type="text" class="form-control" id="matkul_ps_akre" name="matkul_ps_akre">
+                                      <input type="text" class="form-control" id="sertifikat_kompetensi_prof" name="sertifikat_kompetensi_prof">
                                   </div>
 
 
                                    <div class="form-group">
                                       <label for="">Mata Kuliah yang Diampu pada PS yang Diakreditasi</label>
-                                     <input type="text" class="form-control" id="sertifikat_kompetensi_prof" name="sertifikat_kompetensi_prof">
+                                    <select name="matkul_ps_akre" id="matkul_ps_akre" class="form-control">
+                                      @foreach ($Matkul as $item)
+                                      <option value="{{$item->nama_matkul}}">{{$item->nama_matkul}}</option>
+                                      @endforeach
+                                    </select>
                             
                                   </div>
+
                                    <div class="form-group">
                                       <label for="">Kesesuaian Bidang Keahlian</label>
                                       <input type="text" class="form-control" id="kesesuaian_bid_keahlian" name="kesesuaian_bid_keahlian">
                                   </div>
+
                                    <div class="form-group">
                                       <label for="">Mata Kuliah yang Diampu pada PS Lain</label>
                                         <input type="text" class="form-control" id="matkul_diampu_pslain" name="matkul_diampu_pslain">
@@ -139,12 +140,6 @@
                                         <input type="hidden" class="form-control" id="prodi_id" name="prodi_id" value="{{$id}}">
                                     
                                   </div>
-
-                              
-                                  
-                                  
-
-
 
                           <button type="submit" class="btn btn-primary">Simpan Data</button>
                           </form>
@@ -159,8 +154,47 @@
         @endif
 <div class="card-body">
 
+@if($nilai > 12)
+    <div class="alert alert-success">
+            <strong>Selamat</strong><br>
+                <ul>
+                Jumlah Dosen sudah memenuhi syarat nilai anda A
+                </ul>
+          </div>
+@elseif($nilai < 3)
+          <div class="alert alert-danger">
+            <strong>Perhatian</strong><br>
+                <ul>
+                  - Capaian anda belum memenuhi syarat<br>
+                  - Skor anda 0  <BR>
+                  - jumlah dosen {{$nilai}}<br>
+                <strong>Harap segera validasi data anda untuk memenuhi capaian akreditasi Hubungi Bagian kepegawaian</strong>
+                </ul>
+          </div>
+
+@elseif ($nilai < 12)
+             <div class="alert alert-warning">
+            <strong>Perhatian</strong><br>
+                <ul>
+                  - Capaian anda belum memenuhi syarat<br>
+                  - Skor anda 3  <BR>
+                  - jumlah dosen {{$nilai}}<br>
+                </ul>
+          </div>
+
+
+@elseif ($nilai = 0)
+          <div class="alert alert-info">
+              <strong>Perhatian</strong><br>
+                  <ul>
+                    <strong>Harap segera validasi data anda untuk memenuhi capaian akreditasi Hubungi Bagian kepegawaian</strong>   
+                  </ul>
+          </div>
+@endif
+
+
   <div style="overflow-x:auto;">
-    <table class="table table-bordered">
+    <table border="1"cellpadding="10">
         <tr>
             <th width="400px"  class="text-center">Nama Dosen</th>
             <th width="280px" class="text-center">Pendidikan Pasca Sarjana</th>
@@ -189,8 +223,9 @@
             <td width="280px">{{ $item->jabatan_akademik }}</td>
             <td width="280px">{{ $item->sertifikat_pendik_prof }}</td>
             <td width="280px">{{ $item->sertifikat_kompetensi_prof }}</td>
-            <td width="280px"></td>
+            <td width="280px">{{ $item->matkul_ps_akre }}</td>
             <td width="280px">{{ $item->kesesuaian_bid_keahlian }}</td>
+            <td width="280px">{{ $item->matkul_diampu_pslain}}</td>
                      
             <td width="280px"></td>
       
@@ -204,7 +239,7 @@
                            <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                          <h5 class="modal-title">Edit Data Kerjasama </h5>
+                          <h5 class="modal-title">Edit Data  </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
@@ -224,10 +259,7 @@
    
                                   <div class="form-group">
                                       <label for="">Pendidikan Pasca Sarjana</label>
-                                      <select name="pendidikan_pasca_sarjana" id="pendidikan_pasca_sarjana" class="form-control">
-                                      <option value="Magister/ Magister Terapan/ Spesialis">Magister/ Magister Terapan/ Spesialis}</option>
-                                       <option value="Doktor/ Doktor Terapan/ Spesialis">Doktor/ Doktor Terapan/ Spesialis</optio}n>
-                                      </select>
+                                     <input type="text" name="pendidikan_pasca_sarjana" class="form-control">
                                   </div>
                              
                                     <div class="form-group">
@@ -302,6 +334,8 @@
       <!-- /.card -->
 </div>
     </section>
+
+    
    @stop
 
 

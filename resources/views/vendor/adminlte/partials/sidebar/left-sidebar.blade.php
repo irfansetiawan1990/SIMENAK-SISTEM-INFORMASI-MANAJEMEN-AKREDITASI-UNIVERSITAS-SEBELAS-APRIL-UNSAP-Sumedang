@@ -5,27 +5,48 @@
     <!-- Brand Logo -->
     <a href="{{route('home')}}" class="brand-link">
       <img src="{{asset('vendor/adminlte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">SIMENAK NEW 2021</span>
+      <span class="brand-text font-weight-light">SIMENAK UNSAP</span>
     </a>
 
     <!-- Sidebar -->
-    <div class="sidebar">
+      <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <!--img src="{{asset('template/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image"-->
-        </div>
+        <!--div class="image">
+          <img src="{{asset('vendor/adminlte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+        </div-->
 
-        <div class="info">
-          @if (auth()->user()->level=="admin")
+      @if (auth()->user()->level=="admin")
+      <div class="info">
           <a href="#" class="d-block">Administrator</a>
-          @endif
-
-          @if (auth()->user()->level=="user")
-          <a href="#" class="d-block">{{ $user }}</a>
-          @endif
-        </div>
+        </div>     
       </div>
+
+
+      @elseif (auth()->user()->prodi_id=="1")
+      <div class="info">
+          <a href="#" class="d-block">PRODI Teknik Informatika</a>
+        </div>     
+      </div>
+ 
+
+      @elseif (auth()->user()->prodi_id=="2")
+      <div class="info">
+          <a href="#" class="d-block">PRODI Sistem</a>
+        </div>     
+      </div>
+
+
+
+      @elseif (auth()->user()->prodi_id=="3")
+      <div class="info">
+          <a href="#" class="d-block">PRODI Teknik informatika</a>
+        </div>     
+      </div>
+ 
+
+      @endif
+
 
 
  <!-- Sidebar Menu -->
@@ -34,6 +55,8 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
       
+
+
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -42,6 +65,7 @@
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{route('visimisi.index')}}" class="nav-link">
@@ -137,21 +161,76 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{route('Ewmp.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>EWMP Dosen Tetap</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{route('Dosentdktetap.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dosen Tidak Tetap</p>
                 </a>
               </li>
+                 <li class="nav-item">
+                <a href="{{route('Pengakuanrekognisi.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pengakuan/Rekognisi Dosen</p>
+                </a>
+              </li>
+                 <li class="nav-item">
+                <a href="{{route('Penelitiandtps.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Penelitian DTPS</p>
+                </a>
+              </li>
+                 <li class="nav-item">
+                <a href="{{route('Pkmdtps.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>PkM DTPS</p>
+                </a>
+              </li>
+                 <li class="nav-item">
+                <a href="{{route('Publikasiilmiahdtps.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Publikasi Ilmiah DTPS</p>
+                </a>
+              </li>
+                 <li class="nav-item">
+                <a href="{{route('Karyailmiahdtpsdisitasi.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Karya Ilmiah DTPS yang Disitasi</p>
+                </a>
+              </li>
+                 <li class="nav-item">
+                <a href="{{route('Luaranpkmdtpshaki.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>HKI (Paten, Paten Sederhana)</p>
+                </a>
+              </li>
+                 <li class="nav-item">
+                <a href="{{route('Luaranpkmdtpshaki2.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>HKI (Hak Cipta, Desain Produk Industri, dll.)</p>
+                </a>
+              </li>
+                 <li class="nav-item">
+                <a href="{{route('Luaranpkmdtpshaki3.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Teknologi Tepat Guna, Produk, Karya Seni, Rekayasa Sosial</p>
+                </a>
+              </li>
+                 <li class="nav-item">
+                <a href="{{route('Luaranpkmdtpshaki4.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Buku ber-ISBN, Book</p>
+                </a>
+              </li>
+
 
             </ul>
           </li>
-
+  
          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -170,6 +249,7 @@
             </ul>
           </li>
 
+   
       <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
@@ -180,62 +260,45 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{route('Kurikulumcapaianrpp.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kurikulum, Capaian, & RPP</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{Route('Pkmpembelajaran.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Integrasi Kegiatan Penelitian/PkM dalam Pembelajaran</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{Route('Kepuasanmhs.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kepuasan Mahasiswa</p>
                 </a>
               </li>
             </ul>
           </li>
 
-          <li class="nav-item">
+               <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-              Standar 7
+                Standar 7
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{Route('Penelitiandtpsmhs.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Publikasi Ilmiah Mhs</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Produk dan jasa</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/editors.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>HAKI Mahasiswa</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>HAKI & Desain Industri</p>
-                </a>
-              </li>
-               <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Penelitian MHS Buku</p>
-                </a>
-              </li>
-               <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Penelitian DTPS MHS</p>
+                  <p>Penelitian DTPS yang Melibatkan Mahasiswa</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+
+             <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
@@ -245,22 +308,18 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{Route('Pkmdtpsmhs.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>PKM DTPS Mahasiswa</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Advanced Elements</p>
+                  <p>PkM DTPS yang Melibatkan Mahasiswa</p>
                 </a>
               </li>
             </ul>
           </li>
+
+
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
+               <i class="nav-icon fas fa-edit"></i>
               <p>
                 Standar 9
                 <i class="fas fa-angle-left right"></i>
@@ -268,19 +327,64 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Luaran Penelitian Mahasiswa
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{Route('Publikasiilmiahmhs.index')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Publikasi Ilmiah Mahasiswa</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{Route('Luaranpkmmhs.index')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>HKI (Paten, Paten Sederhana)</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{Route('Luaranpkmmhs2.index')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>HKI (Hak Cipta, Desain Produk Industri, dll.)</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{Route('Luaranpkmmhs3.index')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Teknologi Tepat Guna, Produk, Karya Seni, Rekayasa Sosial</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{Route('Luaranpkmmhs4.index')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Buku ber-ISBN, Book Chapter</p>
+                    </a>
+                  </li>
+                </ul>
+      
+
+              <!-- menu normal-->
+          
+              </li>
+              <li class="nav-item">
+                <a href="{{Route('Ipklulusan.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>IPK Lulusan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
+                <a href="{{Route('Prestasiakademikmhs.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Prestasi Akademik</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/forms/editors.html" class="nav-link">
+                <a href="{{Route('Prestasinonakademikmhs.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Prestasi Non Akademik</p>
                 </a>
@@ -292,33 +396,36 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{Route('Waktutunggululusans1.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Waktu tunggu Lulusan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{Route('Kesesuaianbidkerlulusan.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kesuaian Bidang kerja</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
+                <a href="{{Route('Tempatkerjalulusan.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>tempat kerja Lulusan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/forms/editors.html" class="nav-link">
+                <a href="{{Route('Kepuasanpengguna.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kepuasan Pengguna</p>
                 </a>
               </li>
             </ul>
-          </li>
-        @if (auth()->user()->level=="admin")
-          <li class="nav-item">
+          </li>   
+        </li>
+
+
+        @if (auth()->user()->level=="admin"){
+         <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
@@ -328,41 +435,54 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{Route('Daftaruser.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>User</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
+                <a href="{{Route('Fakultas.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Fakultas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{Route('Prodi.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Prodi</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Mata Kuliah</p>
-                </a>
-              </li>
             </ul>
           </li>
 
-          <!--navigasibiasa-->.
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="nav-icon fas fa-download"></i>
               <p>
-                Laporan Kinerja
-                <span class="right badge badge-danger">New</span>
+               Download LKPS
               </p>
             </a>
+            
           </li>
-       
+            <li class="nav-item">
+            <a href="{{Route('Daftarpsunipengelolaprodi.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-download"></i>
+              <p>
+              Daftar Program Studi UPPS
+              </p>
+            </a>
+            
+          </li>
+
+        }
+        else
           @endif
 
-             
+      
+ 
             </ul>
+
+           
         </nav>
     </div>
 

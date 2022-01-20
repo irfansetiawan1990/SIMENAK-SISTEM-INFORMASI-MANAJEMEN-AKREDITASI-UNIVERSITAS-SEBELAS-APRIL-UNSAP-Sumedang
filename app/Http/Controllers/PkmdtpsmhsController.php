@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pkmdtpsmhs;
+use App\Models\Prodi;
+use App\Models\Dosentetappt;
+use App\Models\Mahasiswa;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Alert;
 
 class PkmdtpsmhsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -18,9 +20,31 @@ class PkmdtpsmhsController extends Controller
      */
     public function index()
     {
-        $Pkmdtpsmhs = Pkmdtpsmhs::latest()->paginate(10);
 
-        return view('Pkmdtpsmhs.index',compact('Pkmdtpsmhs'))
+
+       $id = Auth::user()->prodi_id;
+
+      // if (auth()->user()->level=="user"){
+             $Pkmdtpsmhs = DB::table('pkm_dtps_mhs')
+            ->join('dosen_tetap_pt', 'pkm_dtps_mhs.nama_dosen_id', '=', 'dosen_tetap_pt.id')
+            ->join('tb_mahasiswa', 'pkm_dtps_mhs.mhs_id', '=', 'tb_mahasiswa.id_mhs')
+            ->select('pkm_dtps_mhs.*','dosen_tetap_pt.nama_dosen','tb_mahasiswa.nama_mhs')
+           // ->where('pkm_dtps_mhs.prodi_id','=',$id)
+            ->get();
+
+
+      // }
+               
+      // else{
+      //  $Pkmdtpsmhs = Pkmdtpsmhs::simplepaginate(10);
+     //  }
+        
+        
+        $mahasiswa = Mahasiswa::all();
+        $dosen =  Dosentetappt::all();
+        $prodi = Prodi::all();
+        $count = $Pkmdtpsmhs->count('judul_kegiatan');
+        return view('Pkmdtpsmhs.index',compact('Pkmdtpsmhs','id','prodi','mahasiswa','dosen','count'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
@@ -31,7 +55,11 @@ class PkmdtpsmhsController extends Controller
      */
     public function create()
     {
-        return view('Pkmdtpsmhs.create');
+        $Prodi = Prodi::all();
+        $mahasiswa = Mahasiswa::all();
+        $dosen =  Dosentetappt::all();
+        $id = Auth::user()->prodi_id;
+        return view('Pkmdtpsmhs.create', compact('Prodi','id','mahasiswa','dosen'));
     }
 
     /**
@@ -44,17 +72,20 @@ class PkmdtpsmhsController extends Controller
     {
         $request->validate([
         
-        'nama_dosen'=> 'required',
-        'tema_pkm_roadmap'=> 'required',
-        'nama_mhs'=> 'required',
-        'judul_kegiatan'=> 'required',
-        'tahun' => 'required'
+        'nama_dosen_id' =>'required',
+        'tema_roadmap' =>'required',
+        'mhs_id' ,
+        'judul_kegiatan' =>'required',
+        'tahun' =>'required',
+        'prodi_id'  
+   
 
         ]);
 
         Pkmdtpsmhs::create($request->all());
-        return redirect()->route('Pkmdtpsmhs.index')
-                        ->with('berhasil','datadisimpan');
+        Alert::success('Sukses', 'Data Berhasil Disimpan');
+        return redirect()->route('Pkmdtpsmhs.index');
+                        
     }
 
     /**
@@ -86,35 +117,36 @@ class PkmdtpsmhsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pkmdtpsmhs $Pkmdtpsmhs)
+    public function update(Request $request, $id_pkm_dtps_mhs)
     {
-        $required -> validate([
-    
-        'nama_dosen'=> 'required',
-        'tema_pkm_roadmap'=> 'required',
-        'nama_mhs'=> 'required',
-        'judul_kegiatan'=> 'required',
-        'tahun' => 'required'
-
+        $request -> validate([
+        'tema_roadmap' =>'required',
+        'mhs_id',
+        'judul_kegiatan' =>'required',
+        'tahun' =>'required',
+     
+         
 
         ]);
 
-        $Pkmdtpsmhs->update($request->all());
-
-        return redirect()->route('Pkmdtpsmhs.index')
-                        ->with('berhasil','data sudah datadisimpan');
+        $Pkmdtpsmhs = Pkmdtpsmhs::find($id_pkm_dtps_mhs)->update($request->all());
+        Alert::success('Sukses', 'Data Berhasil Disimpan');
+        return redirect()->route('Pkmdtpsmhs.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @retu
+     rn \Illuminate\Http\Response
      */
-    public function destroy(Pkmdtpsmhs $Pkmdtpsmhs)
-    {
-        $Pkmdtpsmhs->delete();
-        return redirect()->route('Pkmdtpsmhs.index')
-                        ->with('berhasil','data sudah dihapus');
-    }
+     public function destroy($id_pkm_dtps_mhs)
+        {
+            $Pkmdtpsmhs = Pkmdtpsmhs::find($id_pkm_dtps_mhs)->delete();
+            Alert::success('Sukses', 'Data Berhasil Dihapus');
+            return redirect()->route('Pkmdtpsmhs.index');
+                  
+        }
 }
+

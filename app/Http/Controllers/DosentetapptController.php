@@ -26,18 +26,23 @@ class DosentetapptController extends Controller
     {
 
         $prodi = Prodi::all();
-        $user = Auth::user()->prodi->nama_prodi;
         $id = Auth::user()->prodi_id;
+
+        $Matkul = DB::table('tb_matkul')
+                ->select('id','nama_matkul')
+                ->get();
 
         if (auth()->user()->level=="user")
         $Dosentetappt = DB::table('dosen_tetap_pt')
                 ->where('prodi_id', '=', $id)
-                ->get();
+                ->get();      
         else
 
         $Dosentetappt = Dosentetappt::simplepaginate(10);
 
-        return view('Dosentetappt.index',compact('Dosentetappt','user','id'))
+        $nilai = $Dosentetappt->count('nama_dosen');
+
+        return view('Dosentetappt.index',compact('Dosentetappt','id','nilai','Matkul'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
@@ -72,8 +77,8 @@ class DosentetapptController extends Controller
                 'matkul_ps_akre'=> 'required',
                 'kesesuaian_bid_keahlian' => 'required',
                 'matkul_diampu_pslain'=> 'required',
-                'prodi_id'=> 'required',
-                'verifikasi'=> 'required'
+                'prodi_id'=> 'required'
+
         ]);
 
         Dosentetappt::create($request->all());
@@ -120,8 +125,7 @@ class DosentetapptController extends Controller
                 'matkul_ps_akre',
                 'kesesuaian_bid_keahlian',
                 'matkul_diampu_pslain',
-                 'prodi_id',
-                 'verifikasi'
+                 'prodi_id'
                 ]);
 
        $Dosentetappt = Dosentetappt::find($id_dosen_tetap_pt)->update($request->all());

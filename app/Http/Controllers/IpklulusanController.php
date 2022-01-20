@@ -4,22 +4,39 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ipklulusan;
+use App\Models\Prodi;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Alert;
 
 class IpklulusanController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
-
+     *
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $Ipklulusan= Ipklulusan::latest()->paginate(10);
 
-        return view('Ipklulusan.index',compact('Ipklulusan'))
+
+       $id = Auth::user()->prodi_id;
+
+       if (auth()->user()->level=="user"){
+             $Ipklulusan = DB::table('ipk_lulusan')
+            ->where('ipk_lulusan.prodi_id','=',$id)
+            ->get();
+
+
+       }
+               
+       else{
+
+        $Ipklulusan = Ipklulusan::simplepaginate(10);
+       }
+        
+        $prodi = Prodi::all();
+        return view('Ipklulusan.index',compact('Ipklulusan','id'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
@@ -30,44 +47,54 @@ class IpklulusanController extends Controller
      */
     public function create()
     {
-        return view('Ipklulusan.create');
+        $id = Auth::user()->prodi_id;
+        return view('Ipklulusan.create', compact('id'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-      \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $request->validate([
-        'tahun_lulus'=> 'required',
-        'jml_lulusan'=> 'required',
-        'min'=> 'required',
-        'rata_rata'=> 'required',
-        'maks'=> 'required'
-            
+        
+        'tahun_lulus' => 'required|unique:ipk_lulusan|max:4',
+        'jml_lulusan' => 'required',
+        'minimal' => 'required',
+        'rata_rata' => 'required',
+        'maks' => 'required',
+        'prodi_id'  
+   
+
         ]);
 
         Ipklulusan::create($request->all());
-        return redirect()->route('Ipklulusan.index')
-                        ->with('berhasil','datadisimpan');
+        Alert::success('Sukses', 'Data Berhasil Disimpan');
+        return redirect()->route('Ipklulusan.index');
+                        
     }
 
     /**
      * Display the specified resource.
-    \Illuminate\Http\Response
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function show(Ipklulusan $Ipklulusan)
+    public function show(Pkmdtpsmhs $Ipklulusan)
     {
         return view('Ipklulusan.show', compact('Ipklulusan'));
     }
 
     /**
      * Show the form for editing the specified resource.
-
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function edit(Ipklulusan $Ipklulusan)
+    public function edit(Pkmdtpsmhs $Ipklulusan)
     {
         return view ('Ipklulusan.edit', compact('Ipklulusan'));
     }
@@ -75,38 +102,38 @@ class IpklulusanController extends Controller
     /**
      * Update the specified resource in storage.
      *
-  
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ipklulusan $Ipklulusan)
+    public function update(Request $request, $id_ipk_lulusan)
     {
-        $required -> validate([
-            'nama_dosen'=> 'required',
-            'dtps' => 'required',
-            'ps_akreditasi' => 'required',
-            'ps_dalampt' => 'required',
-            'ps_luarpt'=> 'required2',
-            'penelitian' => 'required1',
-            'pkm' => 'required',
-            'tugas_tambahan' => 'required',
-            'jml_sks' => 'required',
-            'rata_rata_persemester' => 'required'
-
+        $request -> validate([
+        'tahun_lulus' => 'required',
+        'jml_lulusan' => 'required',
+        'minimal' => 'required',
+        'rata_rata' => 'required',
+        'maks' => 'required',
         ]);
 
-        $Ipklulusan->update($request->all());
-
-        return redirect()->route('Ipklulusan.index')
-                        ->with('berhasil','data sudah datadisimpan');
+        $Ipklulusan = Ipklulusan::find($id_ipk_lulusan)->update($request->all());
+        Alert::success('Sukses', 'Data Berhasil Disimpan');
+        return redirect()->route('Ipklulusan.index');
     }
 
     /**
      * Remove the specified resource from storage.
-    \Illuminate\Http\Response
+     *
+     * @param  int  $id
+     * @retu
+     rn \Illuminate\Http\Response
      */
-    public function destroy(Ipklulusan $Ipklulusan)
-    {
-        $Ipklulusan->delete();
-        return redirect()->route('Ipklulusan.index')
-                        ->with('berhasil','data sudah dihapus');
-    }
+     public function destroy($id_ipk_lulusan)
+        {
+            $Ipklulusan = Ipklulusan::find($id_ipk_lulusan)->delete();
+            Alert::success('Sukses', 'Data Berhasil Dihapus');
+            return redirect()->route('Ipklulusan.index');
+                  
+        }
 }
+

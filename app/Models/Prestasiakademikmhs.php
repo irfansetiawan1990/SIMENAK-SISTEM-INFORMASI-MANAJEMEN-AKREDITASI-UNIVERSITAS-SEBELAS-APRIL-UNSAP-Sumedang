@@ -12,13 +12,13 @@ class Prestasiakademikmhs extends Model
     protected $primaryKey = 'id_prestasi_akademik_mhs';
     protected $fillable = 
    [
-   	'id_prestasi_akademik_mhs',
    	'nama_kegiatan',
-   	'waktu_perolehan',
+   	'tahun_perolehan',
    	'lokal',
    	'nasional',
    	'internasional',
-   	'prestasi'
+   	'prestasi_yg_dicapai',
+    'prodi_id'
    ];
 
    public $timestamps = false;

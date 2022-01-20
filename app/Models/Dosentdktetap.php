@@ -9,7 +9,7 @@ class Dosentdktetap extends Model
 {
     use HasFactory;
     protected $table ='dosen_tdk_tetap';
-    protected $primariKey ='id_dosen_tdk_tetap';
-    protected $fillable =['id_dosen_tdk_tetap','nama_dosen','pen_pas_sarjana','bid_keahlian','jabatan_akademik','serdikprof','serkomprof1','serkomprof2','kesesuaian_matkul'];
+    protected $primaryKey ='id_dosen_tdk_tetap';
+    protected $fillable =['id_dosen_tdk_tetap','nama_dosen','nidnk','pen_pas_sarjana','bid_keahlian','jabatan_akademik','serdikprof','serkomprof','matkul_ps_akre','kesbid_matkul','prodi_id'];
     public $timestamps = false;
 }

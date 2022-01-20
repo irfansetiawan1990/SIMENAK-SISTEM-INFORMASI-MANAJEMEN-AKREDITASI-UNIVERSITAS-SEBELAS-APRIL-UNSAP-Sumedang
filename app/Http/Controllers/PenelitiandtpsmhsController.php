@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Penelitiandtpsmhs;
+use App\Models\Prodi;
+use App\Models\Dosentetappt;
+use App\Models\Mahasiswa;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Alert;
 
 class PenelitiandtpsmhsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -18,9 +20,35 @@ class PenelitiandtpsmhsController extends Controller
      */
     public function index()
     {
-        $Penelitiandtpsmhs = Penelitiandtpsmhs::latest()->paginate(10);
 
-        return view('Penelitiandtpsmhs.index',compact('Penelitiandtpsmhs'))
+
+       $id = Auth::user()->prodi_id;
+
+     //  if (auth()->user()->level=="user"){
+             $Penelitiandtpsmhs = DB::table('penelitian_dtpsmhs')
+            ->join('dosen_tetap_pt', 'penelitian_dtpsmhs.nama_dosen_id', '=', 'dosen_tetap_pt.id')
+            ->join('tb_mahasiswa', 'penelitian_dtpsmhs.mhs_id', '=', 'tb_mahasiswa.id_mhs')
+            ->select('penelitian_dtpsmhs.*','dosen_tetap_pt.nama_dosen','tb_mahasiswa.nama_mhs')
+           // ->where('penelitian_dtpsmhs.prodi_id','=',$id)
+            ->get();
+
+
+       //}
+               
+     //  else{
+      //  $Penelitiandtpsmhs = DB::table('penelitian_dtpsmhs')
+      //      ->join('dosen_tetap_pt', 'penelitian_dtpsmhs.nama_dosen_id', '=', 'dosen_tetap_pt.id')
+        //    ->join('tb_mahasiswa', 'penelitian_dtpsmhs.mhs_id', '=', 'tb_mahasiswa.id_mhs')
+        ///    ->select('penelitian_dtpsmhs.*','dosen_tetap_pt.nama_dosen','tb_mahasiswa.nama_mhs')
+          //  ->get();
+     //  }
+        
+        
+        $mahasiswa = Mahasiswa::all();
+        $dosen =  Dosentetappt::all();
+        $prodi = Prodi::all();
+        $count = $Penelitiandtpsmhs->count('judul_kegiatan');
+        return view('Penelitiandtpsmhs.index',compact('Penelitiandtpsmhs','id','prodi','mahasiswa','dosen','count'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
@@ -31,7 +59,11 @@ class PenelitiandtpsmhsController extends Controller
      */
     public function create()
     {
-        return view('Penelitiandtpsmhs.create');
+        $Prodi = Prodi::all();
+        $mahasiswa = Mahasiswa::all();
+        $dosen =  Dosentetappt::all();
+        $id = Auth::user()->prodi_id;
+        return view('Penelitiandtpsmhs.create', compact('Prodi','id','mahasiswa','dosen'));
     }
 
     /**
@@ -44,16 +76,20 @@ class PenelitiandtpsmhsController extends Controller
     {
         $request->validate([
         
-        'nama_dosen' => 'required',
-        'tema_roadmap'=> 'required',
-        'judul_kegiatan'=> 'required',
-        'tahun' => 'required'
+        'nama_dosen_id' =>'required',
+        'tema_roadmap' =>'required',
+        'mhs_id' ,
+        'judul_kegiatan' =>'required',
+        'tahun' =>'required',
+        'prodi_id'  
+   
 
         ]);
 
         Penelitiandtpsmhs::create($request->all());
-        return redirect()->route('Penelitiandtpsmhs.index')
-                        ->with('berhasil','datadisimpan');
+        Alert::success('Sukses', 'Data Berhasil Disimpan');
+        return redirect()->route('Penelitiandtpsmhs.index');
+                        
     }
 
     /**
@@ -85,33 +121,36 @@ class PenelitiandtpsmhsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Penelitiandtpsmhs $Penelitiandtpsmhs)
+    public function update(Request $request, $id_penelitiandtps_mhs)
     {
-        $required -> validate([
-    
-        'nama_dosen' => 'required',
-        'tema_roadmap'=> 'required',
-        'judul_kegiatan'=> 'required',
-        'tahun' => 'required'
+        $request -> validate([
+        'tema_roadmap' =>'required',
+        'mhs_id',
+        'judul_kegiatan' =>'required',
+        'tahun' =>'required',
+     
+         
 
         ]);
 
-        $Penelitiandtpsmhs->update($request->all());
-
-        return redirect()->route('Penelitiandtpsmhs.index')
-                        ->with('berhasil','data sudah datadisimpan');
+        $Penelitiandtpsmhs = Penelitiandtpsmhs::find($id_penelitiandtps_mhs)->update($request->all());
+        Alert::success('Sukses', 'Data Berhasil Disimpan');
+        return redirect()->route('Penelitiandtpsmhs.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @retu
+     rn \Illuminate\Http\Response
      */
-    public function destroy(Penelitiandtpsmhs $Penelitiandtpsmhs)
-    {
-        $Penelitiandtpsmhs->delete();
-        return redirect()->route('Penelitiandtpsmhs.index')
-                        ->with('berhasil','data sudah dihapus');
-    }
+     public function destroy($id_penelitiandtps_mhs)
+        {
+            $Penelitiandtpsmhs = Penelitiandtpsmhs::find($id_penelitiandtps_mhs)->delete();
+            Alert::success('Sukses', 'Data Berhasil Dihapus');
+            return redirect()->route('Penelitiandtpsmhs.index');
+                  
+        }
 }
+

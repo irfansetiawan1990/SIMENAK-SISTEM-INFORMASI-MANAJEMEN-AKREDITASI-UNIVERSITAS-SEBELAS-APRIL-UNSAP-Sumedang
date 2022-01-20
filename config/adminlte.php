@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Simpati PeDe',
+    'title' => 'SIMENAK NEW',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Simpati</b>PeDe',
+    'logo' => '<b>SIMENAK</b> New',
     'logo_img' => 'images/LOGO-PNG.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -319,7 +319,7 @@ return [
 
                 [
                     'text' => 'EWMP Dosen Tetap',
-                    'url'  => '#',
+                    'url'  => 'ewmp',
                 ],
 
                 [

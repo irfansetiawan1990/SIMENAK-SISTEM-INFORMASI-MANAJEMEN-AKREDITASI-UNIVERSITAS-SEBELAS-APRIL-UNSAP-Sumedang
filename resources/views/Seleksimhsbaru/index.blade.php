@@ -55,13 +55,15 @@
         </div>                                            
         <div class="card-body">
 
+     
+       
           <!-- Tombol untuk menampilkan modal-->
             <button type="button" class="btn btn-primary btn" data-toggle="modal" data-target="#modalTambah">Tambah</button>
            
             <!-- Modal -->
 
             <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="modalTambah" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-scrollable">
                   <div class="modal-content">
                     <div class="modal-header">
                           <h5 class="modal-title">Tambah Data</h5>
@@ -133,7 +135,7 @@
 
     <div class="card-body">
 
-    <table class="table table-bordered">
+    <table border="2"cellpadding="5" style="width:80%">
         <tr>
             <tr>
             <td width="100px" rowspan="2" class="text-center"><strong>Tahun Akademik</strong></td>
@@ -152,7 +154,7 @@
             <td width="100px" class="text-center"><strong>Transfer</strong></td>
           </tr>
         </tr>
-            <tr>
+            <tr bgcolor="#DCDCDC">
               <td width="100px" class="text-center">1</td>
               <td width="100px" class="text-center">2</td>
               <td width="100px" class="text-center">3</td>
@@ -264,8 +266,8 @@
               <td width="100px" class="text-center">{{$row2}}</td>
               <td width="100px" class="text-center">{{$row3}}</td>
               <td width="100px" class="text-center">{{$row4}}</td>
-              <td width="100px" colspan="2" class="text-center"></td>
-              <td width="100px" class="text-center">9</td>
+              <td width="100px" colspan="2" class="text-center">{{$totalnm}}</td>
+              <td width="100px" class="text-center" bgcolor="#DCDCDC"></td>
           </tr>
     </table>
      </div>

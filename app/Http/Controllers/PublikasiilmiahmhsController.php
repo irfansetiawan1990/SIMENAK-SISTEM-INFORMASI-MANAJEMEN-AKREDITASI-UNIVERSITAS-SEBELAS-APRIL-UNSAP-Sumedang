@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Publikasiilmiahmhs;
+use App\Models\Prodi;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Alert;
 
 class PublikasiilmiahmhsController extends Controller
 {
@@ -18,9 +22,25 @@ class PublikasiilmiahmhsController extends Controller
      */
     public function index()
     {
-        $Publikasiilmiahmhs = Publikasiilmiahmhs::latest()->paginate(10);
+        $prodi = Prodi::all();
 
-        return view('Publikasiilmiahmhs.index',compact('Publikasiilmiahmhs'))
+        $id = Auth::user()->prodi_id;
+
+   
+        $Publikasiilmiahmhs = DB::table('publikasi_ilmiah_mhs')
+                ->select('id_publikasi_ilmiah_mhs','jenis_publikasi','ts2','ts1','ts', 
+                          DB::raw('(ts2)+(ts1)+(ts) as jumlah'))
+              //  ->where('publikasi_ilmiah_mhs.prodi_id')
+                ->get();
+        
+
+
+        $sum_ts2 = $Publikasiilmiahmhs->sum('ts2');
+        $sum_ts1 = $Publikasiilmiahmhs->sum('ts1');
+        $sum_ts =  $Publikasiilmiahmhs->sum('ts');
+        $sum_all_ts = $sum_ts2 + $sum_ts1 + $sum_ts;
+    
+        return view('Publikasiilmiahmhs.index',compact('Publikasiilmiahmhs','id','sum_ts2','sum_ts1','sum_ts','sum_all_ts'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
@@ -44,17 +64,21 @@ class PublikasiilmiahmhsController extends Controller
     {
         $request->validate([
         
-            'jenis_publikasi' => 'required',
+            'jenis_publikasi' => 'required|unique:publikasi_ilmiah_mhs|max:100',
             'ts2'=> 'required', 
             'ts1' => 'required',
             'ts'=> 'required',
-            'jumlah' => 'required'
+            'ts'=> 'required',
+            'prodi_id' =>'required',
+            'tahun' => 'required'
+            
 
         ]);
 
         Publikasiilmiahmhs::create($request->all());
-        return redirect()->route('Publikasiilmiahmhs.index')
-                        ->with('berhasil','datadisimpan');
+
+        Alert::success('Sukses', 'Data Berhasil Disimpan');
+        return redirect()->route('Publikasiilmiahmhs.index');
     }
 
     /**
@@ -86,7 +110,7 @@ class PublikasiilmiahmhsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Publikasiilmiahmhs $Publikasiilmiahmhs)
+    public function update(Request $request, Publikasiilmiahmhs $id_publikasi_ilmiah_mhs)
     {
         $required -> validate([
     
@@ -94,15 +118,19 @@ class PublikasiilmiahmhsController extends Controller
             'ts2'=> 'required', 
             'ts1' => 'required',
             'ts'=> 'required',
-            'jumlah' => 'required'
+            'jumlah' => 'required',
+            'prodi_id' =>'required',
+            'tahun' => 'required'
+            
+
 
 
         ]);
 
         $Publikasiilmiahmhs->update($request->all());
 
-        return redirect()->route('Publikasiilmiahmhs.index')
-                        ->with('berhasil','data sudah datadisimpan');
+        Alert::success('Sukses', 'Data Berhasil Dirubah');
+        return redirect()->route('Publikasiilmiahmhs.index');
     }
 
     /**
@@ -111,10 +139,12 @@ class PublikasiilmiahmhsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Publikasiilmiahmhs $Publikasiilmiahmhs)
+    public function destroy($id_publikasi_ilmiah_mhs)
     {
         $Publikasiilmiahmhs->delete();
-        return redirect()->route('Publikasiilmiahmhs.index')
-                        ->with('berhasil','data sudah dihapus');
+        Alert::success('Sukses', 'Data Berhasil Dihapus');
+        return redirect()->route('Publikasiilmiahmhs.index');
     }
+
+
 }

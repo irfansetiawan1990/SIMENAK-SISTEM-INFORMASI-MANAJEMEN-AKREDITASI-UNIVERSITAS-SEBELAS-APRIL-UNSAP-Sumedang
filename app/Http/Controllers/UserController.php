@@ -36,6 +36,7 @@ class UserController extends Controller
         $data_user->role = 'user';
         $data_user->name = $request->name;
         $data_user->email = $request->email;
+        $data_user->photo = $request->;
         $data_user->password = bcrypt('12345678');
         $data_user->remember_token = str_random(60);
         $data_user->save();

@@ -16,7 +16,10 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
-        "realrashid/sweet-alert": "^4.0"
+        "livewire/livewire": "^2.7",
+        "novay/laravel-word-template": "^1.1",
+        "realrashid/sweet-alert": "^4.0",
+        "yajra/laravel-datatables-oracle": "^9.18"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

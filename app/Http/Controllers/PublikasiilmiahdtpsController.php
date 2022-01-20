@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Publikasiilmiahdtps;
+use App\Models\Prodi;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Alert;
 
 class PublikasiilmiahdtpsController extends Controller
 {
@@ -14,94 +18,79 @@ class PublikasiilmiahdtpsController extends Controller
      */
      public function __construct()
     {
-        $this->middleware('role:admin');
+        $this->middleware('auth');
     }
     
     public function index()
     {
-        $Publikasiilmiahdtps = Publikasiilmiahdtps::latest()->paginate(10);
+       
+        $Prodi = Prodi::all();
 
-        return view('Publikasiilmiahdtps.index',compact('Publikasiilmiahdtps'))
+        $id = Auth::user()->prodi_id;
+             
+        $Publikasiilmiahdtps = DB::table('publikasi_ilmiah_dtps')
+                ->select('id_publikasi','media_publikasi','ts2','ts1','ts', 
+                          DB::raw('(ts2)+(ts1)+(ts) as jumlah'))
+                ->where('prodi_id', '=', $id)
+                ->get();
+
+        $sum_ts2 = $Publikasiilmiahdtps->sum('ts2');
+        $sum_ts1 = $Publikasiilmiahdtps->sum('ts1');
+        $sum_ts =  $Publikasiilmiahdtps->sum('ts');
+        $sum_all_ts = $sum_ts2 + $sum_ts1 + $sum_ts;
+
+        return view('Publikasiilmiahdtps.index',compact('Publikasiilmiahdtps','id','sum_ts2','sum_ts1','sum_ts','sum_all_ts'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function edit(Publikasiilmiahdtps $Publikasiilmiahdtps)
     {
-        return view('Publikasiilmiahdtps.create');
+        return view ('Publikasiilmiahdtps.input', compact('Publikasiilmiahdtps'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        $request->validate([
-            'jenis_publikasi' => 'required',
-            'ts2' => 'required',
-            'ts1'=> 'required',
-            'ts'=> 'required',
-            'jumlah'=> 'required'
+      
+        $request-> validate([
+        'media_publikasi' => 'required',
+        'ts2' => 'required',
+        'ts1'=> 'required',
+        'ts'=> 'required',
+        'prodi_id'=> 'required'
+    
+
+
 
         ]);
 
         Publikasiilmiahdtps::create($request->all());
-        return redirect()->route('Publikasiilmiahdtps.index')
-                        ->with('berhasil','datadisimpan');
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Publikasiilmiahdtps $Publikasiilmiahdtps)
-    {
-        return view('Publikasiilmiahdtps.show', compact('Publikasiilmiahdtps'));
-    }
+        return redirect()->route('Publikasiilmiahdtps.index');
+                    Alert::success('Sukses', 'Data Berhasil Disimpan');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Publikasiilmiahdtps $Publikasiilmiahdtps)
-    {
-        return view ('Publikasiilmiahdtps.edit', compact('Publikasiilmiahdtps'));
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Publikasiilmiahdtps $Publikasiilmiahdtps)
+
+
+}
+
+    public function update(Request $request, $id_publikasi)
     {
         $request-> validate([
-            'jenis_publikasi' => 'required',
-            'ts2' => 'required',
-            'ts1'=> 'required',
-            'ts'=> 'required',
-            'jumlah'=> 'required'
+        'media_publikasi' => 'required',
+        'ts2' => 'required',
+        'ts1'=> 'required',
+        'ts'=> 'required'
 
-
+    
         ]);
 
-        $Publikasiilmiahdtps->update($request->all());
+        $Publikasiilmiahdtps = Publikasiilmiahdtps::find($id_publikasi)->update($request->all());
 
-        return redirect()->route('Publikasiilmiahdtps.index')
-                        ->with('berhasil','data sudah datadisimpan');
+        Alert::success('Sukses', 'Data Berhasil dirubah');
+        return redirect()->route('Publikasiilmiahdtps.index');
+                         
     }
 
     /**
@@ -110,10 +99,11 @@ class PublikasiilmiahdtpsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Publikasiilmiahdtps $Publikasiilmiahdtps)
+    public function destroy($id_publikasi)
     {
-        $Publikasiilmiahdtps->delete();
-        return redirect()->route('Publikasiilmiahdtps.index')
-                        ->with('berhasil','data sudah dihapus');
+        $Publikasiilmiahdtps = Publikasiilmiahdtps::find($id_publikasi)->delete();
+        Alert::success('Sukses', 'Data Berhasil Dihapus');
+        return redirect()->route('Publikasiilmiahdtps.index');
+                         
     }
 }

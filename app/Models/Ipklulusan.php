@@ -12,12 +12,13 @@ class Ipklulusan extends Model
     protected $primaryKey = 'id_ipk_lulusan';
     protected $fillable = 
     [
-    	'id_ipk_lulusan',
+
     	'tahun_lulus',
     	'jml_lulusan',
-    	'min',
+    	'minimal',
     	'rata_rata',
-    	'maks'
+    	'maks',
+        'prodi_id'
 	];
 	
 	public $timestamps = false;

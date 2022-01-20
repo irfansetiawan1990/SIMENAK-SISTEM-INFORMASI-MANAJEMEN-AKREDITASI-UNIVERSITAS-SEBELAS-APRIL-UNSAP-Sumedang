@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pkmpembelajaran;
+use App\Models\Prodi;
+use App\Models\Dosentetappt;
+use App\Models\Matakuliah;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Alert;
 
 class PkmpembelajaranController extends Controller
 {
@@ -13,7 +20,30 @@ class PkmpembelajaranController extends Controller
      */
     public function index()
     {
-        //
+
+
+        $id = Auth::user()->prodi_id;
+
+    //   if (auth()->user()->level=="user"){
+             $Pkmpembelajaran = DB::table('pkm_pembelajaran')
+            ->join('dosen_tetap_pt', 'pkm_pembelajaran.nama_dosen_id', '=', 'dosen_tetap_pt.id')
+            ->join('tb_matkul', 'pkm_pembelajaran.mata_kuliah_id', '=', 'tb_matkul.id')
+            ->select('pkm_pembelajaran.*','dosen_tetap_pt.nama_dosen','tb_matkul.nama_matkul')
+            //->where('pkm_pembelajaran.prodi_id','=',$id)
+            ->get();
+
+
+     //  }
+               
+     //  else{
+    //    $Pkmpembelajaran = Pkmpembelajaran::simplepaginate(10);
+    //   }
+        
+        $matkul = Matakuliah::all();
+        $dosen =  Dosentetappt::all();
+        $prodi = Prodi::all();
+        return view('Pkmpembelajaran.index',compact('Pkmpembelajaran','id','prodi','matkul','dosen'))
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -23,7 +53,11 @@ class PkmpembelajaranController extends Controller
      */
     public function create()
     {
-        //
+        $Prodi = Prodi::all();
+        $matkul = Matakuliah::all();
+        $dosen = Dosentetappt::all();
+        $id = Auth::user()->prodi_id;
+        return view('Pkmpembelajaran.create', compact('matkul','Prodi','id','dosen'));
     }
 
     /**
@@ -34,7 +68,21 @@ class PkmpembelajaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+        'judul_pkm' => 'required',          
+        'nama_dosen_id',          
+        'mata_kuliah_id',          
+        'bentuk_integrasi'=> 'required',              
+        'prodi_id' => 'required'    
+  
+   
+
+        ]);
+
+        Pkmpembelajaran::create($request->all());
+        Alert::success('Sukses', 'Data Berhasil Disimpan');
+        return redirect()->route('Pkmpembelajaran.index');
+                        
     }
 
     /**
@@ -43,9 +91,9 @@ class PkmpembelajaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Pkmpembelajaran $Pkmpembelajaran)
     {
-        //
+        return view('Pkmpembelajaran.show', compact('Pkmpembelajaran'));
     }
 
     /**
@@ -54,9 +102,9 @@ class PkmpembelajaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Pkmpembelajaran $Pkmpembelajaran)
     {
-        //
+        return view ('Pkmpembelajaran.edit', compact('Pkmpembelajaran'));
     }
 
     /**
@@ -66,19 +114,36 @@ class PkmpembelajaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_pkm_pembelajaran)
     {
-        //
+        $request -> validate([
+
+        'judul_pkm' => 'required',          
+        'nama_dosen',          
+        'mata_kuliah',           
+        'bentuk_integrasi'=> 'required'
+         
+
+        ]);
+
+        $Pkmpembelajaran = Pkmpembelajaran::find($id_pkm_pembelajaran)->update($request->all());
+        Alert::success('Sukses', 'Data Berhasil Disimpan');
+        return redirect()->route('Pkmpembelajaran.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @retu
+     rn \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+     public function destroy($id_pkm_pembelajaran)
+        {
+            $Pkmpembelajaran = Pkmpembelajaran::find($id_pkm_pembelajaran)->delete();
+            Alert::success('Sukses', 'Data Berhasil Dihapus');
+            return redirect()->route('Pkmpembelajaran.index');
+                  
+        }
 }
+

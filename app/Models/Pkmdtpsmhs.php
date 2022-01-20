@@ -12,12 +12,12 @@ class Pkmdtpsmhs extends Model
     protected $primaryKey = 'id_pkm_dtps_mhs';
     protected $fillable = 
     [
-    	'id_pkm_dtps_mhs',
-    	'nama_dosen',
-    	'tema_pkm_roadmap',
-    	'nama_mhs',
+    	'nama_dosen_id',
+    	'tema_roadmap',
+    	'mhs_id',
     	'judul_kegiatan',
-        'tahun'
+        'tahun',
+        'prodi_id'
 
     ] ;
     public $timestamps = false;

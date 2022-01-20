@@ -12,12 +12,12 @@ class Pkmpembelajaran extends Model
     protected $primaryKey = 'id_pkm_pembelajaran';
     protected $fillable = 
     [
-    	'id_pkm_pembelajaran',
-    	'judul_pkm',
-    	'nama_dosen',
-    	'matkul',
-    	'bentuk_integrasi',
-    	'tahun'
+        'judul_pkm',          
+        'nama_dosen_id', 
+        'mata_kuliah_id',                   
+        'bentuk_integrasi',              
+        'prodi_id'                   
+
     ];
     public $timestamps = false;
 }

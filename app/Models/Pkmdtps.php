@@ -10,14 +10,14 @@ class Pkmdtps extends Model
     use HasFactory;
     protected $table = 'pkm_dtps';
     protected $primaryKey = 'id_pkm_dtps';
-    protected $fillanle = 
+    protected $fillable = 
     [
         'id_pkm_dtps',
         'sumber_pembiayaan',
         'ts2',
         'ts1',
         'ts',
-        'jumlah'
+        'prodi_id'
     ];
     public $timestamps = false;
 }

@@ -9,16 +9,16 @@ class Tempatkerjalulusan extends Model
 {
     use HasFactory;
     protected $table = 'tempat_kerja_lulusan';
-    protected $primaryKey = 'id_seleksi';
+    protected $primaryKey = 'id_tkl';
     protected $fillable = 
     [
-    	'id_tempat_kerja_lulusan',
     	'tahun_lulus',
     	'jml_lulusan',
-    	'jml_lulusan_terlacak',
+    	'jml_terlacak',
     	'lokal',
     	'nasional',
-    	'internasional'
+    	'internasional',
+        'prodi_id'
     	
     ];
     public $timestamps = false;

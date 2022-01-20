@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Penelitiandtps;
+use App\Models\Prodi;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Alert;
 
 class PenelitiandtpsController extends Controller
 {
@@ -14,96 +18,79 @@ class PenelitiandtpsController extends Controller
      */
      public function __construct()
     {
-        $this->middleware('role:admin');
+        $this->middleware('auth');
     }
     
     public function index()
     {
-        $Penelitiandtps = Penelitiandtps::latest()->paginate(10);
+        
 
-        return view('Penelitiandtps.index',compact('Penelitiandtps'))
+        $Prodi = Prodi::all();
+
+        $id = Auth::user()->prodi_id;
+
+       
+        $Penelitiandtps = DB::table('penelitian_dtps')
+                ->select('id_penelitian','sumber_pembiayaan','ts2','ts1','ts', 
+                          DB::raw('(ts2)+(ts1)+(ts) as jumlah'))
+                ->where('prodi_id', '=', $id)
+                ->get();
+
+        $sum_ts2 = $Penelitiandtps->sum('ts2');
+        $sum_ts1 = $Penelitiandtps->sum('ts1');
+        $sum_ts = $Penelitiandtps->sum('ts');
+        $sum_all_ts = $sum_ts2 + $sum_ts1 + $sum_ts;
+   
+
+        return view('Penelitiandtps.index',compact('Penelitiandtps','id','sum_ts2','sum_ts1','sum_ts','sum_all_ts'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+
+    public function edit(Penelitiandtps $Penelitiandtps)
     {
-        return view('Penelitiandtps.create');
+        return view ('Penelitiandtps.input', compact('Penelitiandtps'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        $request->validate([
-    
+        $total = DB::table('penelitian_dtps')->sum('ts2');
+        $request-> validate([
         'sumber_pembiayaan' => 'required',
         'ts2' => 'required',
         'ts1'=> 'required',
         'ts'=> 'required',
-        'jumlah' => 'required'
+    
+
 
 
         ]);
 
         Penelitiandtps::create($request->all());
-        return redirect()->route('Penelitiandtps.index')
-                        ->with('berhasil','datadisimpan');
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Penelitiandtps $Penelitiandtps)
-    {
-        return view('Penelitiandtps.show', compact('Penelitiandtps'));
-    }
+        return redirect()->route('Penelitiandtps.index');
+                    Alert::success('Sukses', 'Data Berhasil Disimpan');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Penelitiandtps $Penelitiandtps)
-    {
-        return view ('Penelitiandtps.edit', compact('Penelitiandtps'));
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Penelitiandtps $Penelitiandtps)
+
+
+}
+
+    public function update(Request $request, $id_penelitian)
     {
         $request-> validate([
         'sumber_pembiayaan' => 'required',
         'ts2' => 'required',
         'ts1'=> 'required',
         'ts'=> 'required',
-        'jumlah' => 'required'
-
-
         ]);
 
-        $Penelitiandtps->update($request->all());
+        $Penelitiandtps = Penelitiandtps::find($id_penelitian)->update($request->all());
 
-        return redirect()->route('Penelitiandtps.index')
-                        ->with('berhasil','data sudah datadisimpan');
+        Alert::success('Sukses', 'Data Berhasil dirubah');
+        return redirect()->route('Penelitiandtps.index');
+                         
     }
 
     /**
@@ -112,10 +99,12 @@ class PenelitiandtpsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Penelitiandtps $Penelitiandtps)
+    public function destroy($id_penelitian
+    )
     {
-        $Penelitiandtps->delete();
-        return redirect()->route('Penelitiandtps.index')
-                        ->with('berhasil','data sudah dihapus');
+        $Penelitiandtps = Penelitiandtps::find($id_penelitian)->delete();
+        Alert::success('Sukses', 'Data Berhasil Dihapus');
+        return redirect()->route('Penelitiandtps.index');
+                         
     }
 }

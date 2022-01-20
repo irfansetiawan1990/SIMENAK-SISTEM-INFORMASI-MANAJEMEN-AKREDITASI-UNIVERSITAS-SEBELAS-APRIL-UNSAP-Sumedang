@@ -9,15 +9,16 @@ class Penelitiandtps extends Model
 {
     use HasFactory;
     protected $table = 'penelitian_dtps';
-    protected $primaryKey = 'id_penelitian_dtps';
+    protected $primaryKey = 'id_penelitian';
     protected $fillable = 
     [
-    	'id_penelitian_dtps',
+    	'id_penelitian',
     	'sumber_pembiayaan',
     	'ts2',
     	'ts1',
     	'ts',
-    	'jumlah'
+    	'jumlah',
+        'prodi_id'
     ];
     public $timestamps = false;
 }

@@ -1,0 +1,151 @@
+@extends('adminlte::page')
+@section('content')
+ <!-- Content Header (Page header) -->
+  <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Kurikulum</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="home">Home</a></li>
+              <li class="breadcrumb-item active">Kurikulum</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Data Kurikulum</h3>
+          <div class="card-tools">
+
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>                                                
+        <div class="card-body">
+
+          @if ($errors->any())
+                      <div class="alert alert-danger">
+                          <strong>Ups</strong> Ada masalah di inputan anda<br><br>
+                          <ul>
+                              @foreach ($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                              @endforeach
+                          </ul>
+                      </div>
+                  @endif
+         
+                  <div class="form-group row">
+ <form action="{{ route('Kurikulumcapaianrpp.store') }}" method="POST">
+                            @csrf
+                       
+               
+                                    <div class="form-group">
+                                      <label for="">Mata Kuliah</label>
+                                      <select name="matkul_id"  class="form-control">
+                                        @foreach ($Matkul as $data)
+                                        <option value="{{$data->id}}">{{$data->nama_matkul}}</option>
+                                        @endforeach
+                                      </select>
+                                    </div>
+
+
+                                     
+                                    <label for="">Mata Kuliah Kompetensi</label>
+                                    <p>centang jika mata kuliah termasuk dalam mata kuliah kompetensi program studi.</p>
+                                    <div class="form-check">
+                                      <input class="form-check-input" name="matkul_komp" type="checkbox" value="Ya" id="defaultCheck1">
+                                      <label class="form-check-label" for="defaultCheck1">
+                                        Ya
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" name="matkul_komp" type="checkbox" value="" id="defaultCheck1">
+                                      <label class="form-check-label" for="defaultCheck1">
+                                        Tidak
+                                      </label>
+                                    </div>
+                                    <BR>
+
+
+
+                                    <div class="form-group">
+                                      <label for="">Kuliah /Responsi /Tutor </label>
+                                      <input type="number" class="form-control" id="kuliah_responsi_tutor" name="kuliah_responsi_tutor" aria-describedby="emailHelp">
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="">Seminar </label>
+                                      <input type="number"  class="form-control" id="seminar" name="seminar" aria-describedby="emailHelp">
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="">Praktikum /Praktik/ Praktik Lapangan </label>
+                                      <input type="text" class="form-control" id="praktik" name="praktik" aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="">Konversi Kredit Ke jam</label>
+                                      <input type="number"  class="form-control" id="konversi" name="konversi" aria-describedby="emailHelp">
+                                    </div>
+
+
+                                     Beri tanda centang pada kolom unsur pembentuk Capaian Pembelajaran Lulusan (CPL) sesuai dengan rencana pembelajaran.
+                                    <div class="form-group">
+                                      <label for="">Sikap </label>
+                                      <input type="checkbox" id="cpl_sikap" name="cpl_sikap" aria-describedby="emailHelp" value="V">
+                                    </div>
+                                      <div class="form-group">
+                                      <label for="">Pengetahuan</label>
+                                       <input type="checkbox" id="cpl_pengetahuan" name="cpl_pengetahuan" aria-describedby="emailHelp" value="V">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="">Keterampilan Umum</label>
+                                      <input type="checkbox" aria-describedby="emailHelp" value="V">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="">Keterampilan Khusus </label>
+                                       <input type="checkbox"  id="cpl_keterampilan_khusus" name="cpl_keterampilan_khusus" aria-describedby="emailHelp" value="V">
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="">Dokumen Rencana Pembelajaran</label>
+                                      <input type="text" class="form-control" id="dokumen_rencana_pembelajaran" name="dokumen_rencana_pembelajaran" aria-describedby="emailHelp">
+                                    </div>
+
+                                      <div class="col-xs-4">
+                                       <div class="form-group row">
+                                        <label for="">Unit Penyelenggara</label>
+                                        <input type="text"  id="unit_penyelenggara" name="unit_penyelenggara" aria-describedby="emailHelp">
+                                      </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" id="prodi_id" name="prodi_id" value="{{$id}}">
+                                    </div>
+
+                          <button type="submit" class="btn btn-primary">Simpan Data</button>
+                          </form>
+
+
+
+
+                  </div>
+                    <!--FORM TAMBAH PS-->
+                         
+ 
+</div>
+    
+   @stop
+
+

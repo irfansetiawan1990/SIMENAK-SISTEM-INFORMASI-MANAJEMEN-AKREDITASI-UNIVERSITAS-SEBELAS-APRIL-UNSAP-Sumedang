@@ -8,16 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Rekognisidtps extends Model
 {
 	    use HasFactory;
-	    protected $table = 'rekognisidtps';
-	    protected $primaryKey = 'id_rekognisi_dtps';
+	    protected $table = 'rekognisi_dtps';
+	    protected $primaryKey = 'id_rekognisi';
 	    protected $fillable = 
 	   [
-	   		'id_rekognisi_dtps',
+	   		'id_rekognisi',
 	   		'nama_dosen',
 	   		'bidang_keahlian',
-	   		'rekognisi_bukti',
-	   		'ts',
-	   		'jumlah'
+	   		'rkg_bkt_pendukung',
+	   		'wilayah',
+	   		'nasional',
+	   		'internasional',
+	   		'tahun',
+	   		'prodi_id'
 	   
 	   ];
 

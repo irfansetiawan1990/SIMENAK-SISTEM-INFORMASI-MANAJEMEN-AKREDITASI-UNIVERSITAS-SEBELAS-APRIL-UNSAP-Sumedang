@@ -8,14 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Luaranpkmmhs3 extends Model
 {
     use HasFactory;
-    protected $table = 'luaran_pkm_mhs_bag3';
-	protected $primaryKey = 'id_luaran_penelitian_bag3_mhs';
+    protected $table = 'luaran_pkm_mhs3';
+	protected $primaryKey = 'id_pkm_mhs3';
 	protected $fillable = [
-
-	'id_luaran_penelitian_bag3_mhs',
 	'luaran_pkm',
 	'tahun',
-	'keterangan'
+	'keterangan',
+	'prodi_id'
 	];  
 	
 	public $timestamps = false;  

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Alert;
 
 class CekLevel
 {
@@ -20,6 +21,9 @@ class CekLevel
             return $next($request);
 
         }
-        return redirect('/');
+
+        Alert::error('Maaf', 'Anda tidak dapat mengakses halaman ini');
+        return redirect('home');
+        //mun teu menang nya balik dei 
     }
 }

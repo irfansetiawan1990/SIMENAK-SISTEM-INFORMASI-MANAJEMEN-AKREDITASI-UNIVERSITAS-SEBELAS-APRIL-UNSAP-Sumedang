@@ -9,7 +9,6 @@ class Matakuliah extends Model
 {
     use HasFactory;
     protected $table ='tb_matkul';
-    protected $primaryKey = 'id';
     protected $fillable =
     [
     'id',
@@ -19,8 +18,6 @@ class Matakuliah extends Model
 	];
     public $timestamps = false;
 
-    public function dosentetappt()
-    {
-        return $this->hasMany(Dosentetappt::class);
-    }
+
+    
 }

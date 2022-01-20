@@ -12,12 +12,12 @@ class Publikasiilmiahdtps extends Model
 	    protected $primaryKey = 'id_publikasi';
 	    protected $fillable = 
 	   [
-	   		'id_publikasi_ilmiah_dtps',
-	   		'jenis_publikasi',
+	   		'id_publikasi',
+	   		'media_publikasi',
 	   		'ts2',
 	   		'ts1',
 	   		'ts',
-	   		'jumlah'
+	   		'prodi_id'
 	   
 	   ];
 

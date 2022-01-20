@@ -9,9 +9,9 @@ class Ewmp extends Model
 {
     use HasFactory;
     protected $table = 'ewmp_dosen';
-    protected $primaryKey = 'id_ewmp';
+    protected $primaryKey = 'id_ewmp_dosen';
     protected $fillable = [
-    'id_ewmp',
+
     'nama_dosen',
     'dtps',
     'ps_akreditasi',
@@ -19,9 +19,13 @@ class Ewmp extends Model
     'ps_luarpt',
     'penelitian',
     'pkm',
-    'tugas_tambahan'
-    ,'jml_sks'
-    ,'rata_rata_persemester'
-]
-    protected $table = 'ewmp_dosen';
+    'tugas_tambahan',
+    'jml_sks',
+    'rata_rata_persemester',
+    'prodi_id'
+    ];
+   public $timestamps = false;
+
+
+
 }

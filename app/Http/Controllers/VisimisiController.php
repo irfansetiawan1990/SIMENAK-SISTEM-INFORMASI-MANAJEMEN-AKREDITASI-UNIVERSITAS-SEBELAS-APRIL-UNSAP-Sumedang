@@ -26,7 +26,6 @@ class VisimisiController extends Controller
     public function index()
     {
         $prodi = Prodi::all();
-        $user = Auth::user()->prodi->nama_prodi;
         //untuk isian prodi
         $id = Auth::user()->prodi_id;
 
@@ -34,7 +33,6 @@ class VisimisiController extends Controller
         if (auth()->user()->level=="user")
         $visimisi = DB::table('vmts')
                 ->where('prodi_id', '=', $id)
-
                 ->get();   
         else
 
@@ -44,7 +42,7 @@ class VisimisiController extends Controller
                 ->select('vmts.*', 'tb_prodi.nama_prodi')
                 ->get();
 
-        return view('visimisi.index',compact('visimisi','id','user'))
+        return view('visimisi.index',compact('visimisi','id'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
@@ -96,6 +94,10 @@ class VisimisiController extends Controller
      */
     public function show(Visimisi $visimisi)
     {
+        if (auth()->user()->level=="admin")
+        return view('visimisi.show', compact('visimisi'));
+        else
+            
         $user = Auth::user()->prodi->nama_prodi;
         return view('visimisi.show', compact('visimisi','user'));
     }
@@ -128,8 +130,6 @@ class VisimisiController extends Controller
         ]);
 
         $visimisi->update($request->all());
-
-        Visimisi::create($request->all());
             Alert::success('Sukses', 'Data Berhasil Dirubah');
             return redirect()->route('visimisi.index');
     }

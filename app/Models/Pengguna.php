@@ -10,12 +10,13 @@ class Pengguna extends Model
 
     protected $table = 'users';
     protected $fillable = [
-        'id',
         'name',
         'email',
-        'password',
         'level',
-
+        'password',
+        'image',
+        'fakul_id',
+        'prodi_id'
     ];
     
     public $timestamps = false;

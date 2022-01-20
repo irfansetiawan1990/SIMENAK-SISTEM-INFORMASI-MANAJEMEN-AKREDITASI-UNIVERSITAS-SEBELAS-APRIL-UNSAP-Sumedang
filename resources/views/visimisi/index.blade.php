@@ -74,21 +74,19 @@
                           <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalHapus{{ $item->id }}">Delete</button>
 
                           <div class="modal" id="modalHapus{{ $item->id }}" tabindex="-1" aria-labelledby="modalHapus" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
+                              <div class="modal-dialog">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h4 class="modal-title">Perhatian</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <h4 class="modal-title">Perhatian</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
                                       <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    </div>
-
-                                      <div class="modal-body">
-                                      <h4 align="left" > Anda yakin data ini akan dihapus?</h4>
+                                      </button>
                                       </div>
-                                       <form action="{{ route('visimisi.destroy',$item->id) }}" method="POST">
+                                      <div class="modal-body">
+                                        <h4>Apakah anda yakin menghapus Data ini? :</h4>
+                                      </div>
                                         <div class="modal-footer">
-                                         
+                                          <form action="{{ route('visimisi.destroy',$item->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-primary">Hapus Data!</button>
@@ -96,10 +94,15 @@
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                                           @endif
                                
-                                  </div>
+                                    </div>
                                 </div>
                             </div>
-                          </div>     
+                          </div>
+                        </div>
+
+                       
+
+      
                 </td>
        
         </tr>

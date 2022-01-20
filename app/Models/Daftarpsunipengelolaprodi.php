@@ -9,10 +9,10 @@ class Daftarpsunipengelolaprodi extends Model
 {
 
     protected $table = 'tb_daftarpsunipengelolaprodi';
+    protected $primaryKey ='id_upps';
     protected $fillable = [
-        'id',
         'jenis_program',
-        'nama_ps',
+        'prodi_id',
         'status',
         'no_tgl_sk',
         'tgl_kadaluarsa',

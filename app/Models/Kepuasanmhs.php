@@ -9,15 +9,19 @@ class Kepuasanmhs extends Model
 {
     use HasFactory;
     protected $table = 'kepuasan_mhs';
-    protected $primariKey = 'id_kepuasanmhs';
+    protected $primaryKey = 'id_kepuasanmhs';
     protected $fillable = 
     [ 
     	'id_kepuasanmhs',
     	'aspek_yg_diukur',
-    	'tingkat_kepuasan',
-    	'rencana_tindak_lanjut'
+        'sangat_baik',
+        'baik',
+        'cukup',
+        'kurang',
+    	'rencana_tindak_lanjut',
+        'prodi_id'
 
-    ]
+    ];
 
-    protected $fillable = false;
+    public $timestamps = false;
 }

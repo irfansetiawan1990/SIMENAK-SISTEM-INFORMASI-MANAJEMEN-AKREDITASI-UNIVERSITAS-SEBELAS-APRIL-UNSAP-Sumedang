@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Kepuasanmhs;
+use App\Models\Prodi;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Alert;
 
 class KepuasanmhsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +22,31 @@ class KepuasanmhsController extends Controller
      */
     public function index()
     {
-        //
+
+        $Prodi = Prodi::all();
+
+        $id = Auth::user()->prodi_id;
+
+        if (auth()->user()->level=="user"){
+             $kepuasanmhs = DB::table('kepuasan_mhs')
+                ->where('prodi_id', '=', $id)
+                ->get();
+                }
+
+        else {
+
+        $kepuasanmhs = Kepuasanmhs::latest()->simplepaginate(10);
+        }
+
+      //  $total_matkomp= DB::table('kurikulum_capaian_rpp')
+             //   ->count('matkul_komp');
+
+       $total_sb = $kepuasanmhs->SUM('sangat_baik');
+       $total_b = $kepuasanmhs->SUM('baik');
+       $total_c = $kepuasanmhs->SUM('cukup');
+       $total_k = $kepuasanmhs->SUM('kurang');
+        return view('Kepuasanmhs.index',compact('kepuasanmhs','id','total_sb','total_b','total_c','total_k'))
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -23,7 +56,8 @@ class KepuasanmhsController extends Controller
      */
     public function create()
     {
-        //
+        $id = Auth::user()->prodi_id;
+        return view('Kepuasanmhs.create', compact('id'));
     }
 
     /**
@@ -34,7 +68,21 @@ class KepuasanmhsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+        'aspek_yg_diukur' => 'required',
+        'sangat_baik' => 'required',
+        'baik' => 'required',
+        'cukup' => 'required',
+        'kurang' => 'required',
+        'rencana_tindak_lanjut' => 'required',
+        'prodi_id'=> 'required'
+
+        ]);
+
+        Kepuasanmhs::create($request->all());
+        Alert::success('Sukses', 'Data Berhasil Disimpan');
+        return redirect()->route('Kepuasanmhs.index');
+                        
     }
 
     /**
@@ -43,9 +91,9 @@ class KepuasanmhsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(kepuasan_mhs $kepuasanmhs)
     {
-        //
+        return view('Kepuasanmhs.show', compact('kepuasanmhs'));
     }
 
     /**
@@ -54,9 +102,9 @@ class KepuasanmhsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(kepuasan_mhs $kepuasanmhs)
     {
-        //
+        return view ('Kepuasanmhs.edit', compact('kepuasan_mhs'));
     }
 
     /**
@@ -66,19 +114,35 @@ class KepuasanmhsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_kepuasanmhs)
     {
-        //
+        $request -> validate([
+
+        'sangat_baik' => 'required',
+        'baik' => 'required',
+        'cukup' => 'required',
+        'kurang' => 'required',
+        'rencana_tindak_lanjut' => 'required',
+        'prodi_id'
+        ]);
+
+        $kepuasanmhs = Kepuasanmhs::find($id_kepuasanmhs)->update($request->all());
+        Alert::success('Sukses', 'Data Berhasil Disimpan');
+        return redirect()->route('Kepuasanmhs.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @retu
+     rn \Illuminate\Http\Response
      */
-    public function destroy($id)
+     public function destroy($id_kepuasanmhs)
     {
-        //
+        $kepuasanmhs = Kepuasanmhs::find($id_kepuasanmhs)->delete();
+        Alert::success('Sukses', 'Data Berhasil Dihapus');
+        return redirect()->route('Kepuasanmhs.index');
+              
     }
 }

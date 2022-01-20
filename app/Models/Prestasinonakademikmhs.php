@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Prestasinonakademikmhs extends Model
 {
     use HasFactory;
-    protected $table = 'prestasi_non_akademik_mhs';
+    protected $table = 'prestasi_nonakademik_mhs';
     protected $primaryKey = 'id_prestasi_non_akademik_mhs';
     protected $fillable = 
    [
-   	'id_prestasi_akademik_non_mhs',
-   	'nama_kegiatan',
-   	'waktu_perolehan',
-   	'lokal',
-   	'nasional',
-   	'internasional',
-   	'prestasi_yg_dicapai'
+    'nama_kegiatan',
+    'tahun_perolehan',
+    'lokal',
+    'nasional',
+    'internasional',
+    'prestasi_yg_dicapai',
+    'prodi_id'
    ];
 
    public $timestamps = false;

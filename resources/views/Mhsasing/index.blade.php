@@ -52,8 +52,7 @@
                       </div>
                   @endif
 
-        </div>                                            
-        <div class="card-body">
+       
 
           <!-- Tombol untuk menampilkan modal-->
             <button type="button" class="btn btn-primary btn" data-toggle="modal" data-target="#modalTambah">Tambah</button>
@@ -144,25 +143,25 @@
 
     <div class="card-body">
 
-    <table class="table table-bordered">
+     <table border="2"cellpadding="5" style="width:100%">
         <tr>
             <tr>
             <td width="280px" rowspan="2" class="text-center"><strong>Program Studi</strong></td>
-            <td width="100px" colspan="3" class="text-center"><strong>Jumlah Mahasiswa Aktif</strong></td>
-            <td width="100px" colspan="3" class="text-center"><strong>Jumlah Mahasiswa Asing Penuh Waktu</strong></td>
-            <td width="100px" colspan="3" class="text-center"><strong>Jumlah Mahasiswa Asing Paruh Waktu</strong></td>
-            <td width="100px" rowspan="2" class="text-center"><strong>Aksi</strong></td>
+            <td width="50px" colspan="3" class="text-center"><strong>Jumlah Mahasiswa Aktif</strong></td>
+            <td width="50px" colspan="3" class="text-center"><strong>Jumlah Mahasiswa Asing Penuh Waktu</strong></td>
+            <td width="50px" colspan="3" class="text-center"><strong>Jumlah Mahasiswa Asing Paruh Waktu</strong></td>
+            <td width="50px" rowspan="2" class="text-center"><strong>Aksi</strong></td>
           </tr>
           <tr>
-            <td width="100px" class="text-center"><strong>TS-2</strong></td>
-            <td width="100px" class="text-center"><strong>TS-1</strong></td>
-            <td width="100px" class="text-center"><strong>TS</strong></td>
-            <td width="100px" class="text-center"><strong>TS-2</strong></td>
-            <td width="100px" class="text-center"><strong>TS-1</strong></td>
-            <td width="100px" class="text-center"><strong>TS</strong></td>
-            <td width="100px" class="text-center"><strong>TS-2</strong></td>
-            <td width="100px" class="text-center"><strong>TS-1</strong></td>
-            <td width="100px" class="text-center"><strong>TS</strong></td>
+            <td width="50px" class="text-center"><strong>TS-2</strong></td>
+            <td width="50px" class="text-center"><strong>TS-1</strong></td>
+            <td width="50px" class="text-center"><strong>TS</strong></td>
+            <td width="50px" class="text-center"><strong>TS-2</strong></td>
+            <td width="50px" class="text-center"><strong>TS-1</strong></td>
+            <td width="50px" class="text-center"><strong>TS</strong></td>
+            <td width="50px" class="text-center"><strong>TS-2</strong></td>
+            <td width="50px" class="text-center"><strong>TS-1</strong></td>
+            <td width="50px" class="text-center"><strong>TS</strong></td>
           </tr>
         </tr>
             <tr>
@@ -181,15 +180,15 @@
         @foreach ($Mhsasing as $item)
         <tr>
  
-            <td width="280px" class="text-center">{{ $item->ps_program_studi }}</div></td>
-            <td width="100px" class="text-center">{{ $item->ts2 }}</div></td>
-            <td width="100px" class="text-center">{{ $item->ts1 }}</div></td>
-            <td width="100px" class="text-center">{{ $item->ts }}</div></td>
-             <td width="100px" class="text-center">{{ $item->ts2_1 }}</div></td>
-            <td width="100px" class="text-center">{{ $item->ts1_1 }}</div></td>
-            <td width="100px" class="text-center">{{ $item->ts_1}}</div></td>
-             <td width="100px" class="text-center">{{ $item->ts2_2 }}</div></td>
-            <td width="100px" class="text-center">{{ $item->ts1_2 }}</div></td>
+            <td width="280px">{{ $item->ps_program_studi }}</div></td>
+            <td width="50px" class="text-center">{{ $item->ts2 }}</div></td>
+            <td width="50px" class="text-center">{{ $item->ts1 }}</div></td>
+            <td width="50px" class="text-center">{{ $item->ts }}</div></td>
+             <td width="50px" class="text-center">{{ $item->ts2_1 }}</div></td>
+            <td width="50px" class="text-center">{{ $item->ts1_1 }}</div></td>
+            <td width="50px" class="text-center">{{ $item->ts_1}}</div></td>
+             <td width="50px" class="text-center">{{ $item->ts2_2 }}</div></td>
+            <td width="50px" class="text-center">{{ $item->ts1_2 }}</div></td>
             <td width="100px" class="text-center">{{ $item->ts_2}}</div></td>
 
             <td width="100px">
@@ -286,6 +285,19 @@
             </td>
         </tr>
         @endforeach
+        <tr>
+      <td class="text-right" >Jumlah</td>
+      <td class="text-center">22</td>
+      <td class="text-center">22</td>
+      <td class="text-center">22</td>
+      <td class="text-center">32</td>
+      <td class="text-center">32</td> 
+      <td class="text-center">27</td>
+      <td class="text-center">27</td>
+      <td class="text-center">20</td>
+      <td class="text-center">19</td>
+      <td bgcolor="#DCDCDC"></td>
+    </tr>
          
     </table>
      </div>

@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pengakuanrekognisi;
+use App\Models\Prodi;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Alert;
 
 class PengakuanrekognisiController extends Controller
 {
@@ -17,9 +21,19 @@ class PengakuanrekognisiController extends Controller
      */
     public function index()
     {
-        $Pengakuanrekognisi= Pengakuanrekognisi::latest()->paginate(10);
+        $t_wilayah = DB::table('rekognisi_dtps')->count('wilayah');
+        $t_nasional = DB::table('rekognisi_dtps')->count('nasional');
+        $t_internasional = DB::table('rekognisi_dtps')->count('internasional');
+        $id = Auth::user()->prodi_id;
 
-        return view('Pengakuanrekognisi.index',compact('Pengakuanrekognisi'))
+        if (auth()->user()->level=="user")
+        $Pengakuanrekognisi = DB::table('rekognisi_dtps')
+                ->where('prodi_id', '=', $id)
+                ->get();
+        else
+            
+        $Pengakuanrekognisi= Pengakuanrekognisi::latest()->paginate(10);
+        return view('Pengakuanrekognisi.index',compact('Pengakuanrekognisi','id','t_wilayah','t_nasional','t_internasional'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
@@ -41,18 +55,21 @@ class PengakuanrekognisiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-      
+            'nama_dosen' => 'required | unique:rekognisi_dtps',
+            'bidang_keahlian' => 'required',
 	   		'rekognisi_bukti' => 'required',
-	   		'wilayah'  => 'required',
-	   		'nasional'  => 'required',,
-	   		'internasional'  => 'required',
-	   		'tahun'  => 'required'
+	   		'wilayah' ,
+	   		'nasional',
+	   		'internasional',
+	   		'tahun'  => 'required',
+            'prodi_id'  => 'required'
 
         ]);
 
         Pengakuanrekognisi::create($request->all());
-        return redirect()->route('Pengakuanrekognisi.index')
-                        ->with('berhasil','datadisimpan');
+        Alert::success('Sukses', 'Data Berhasil disimpan');
+        return redirect()->route('Pengakuanrekognisi.index');
+                        
     }
 
     /**
@@ -78,32 +95,38 @@ class PengakuanrekognisiController extends Controller
      *
   
      */
-    public function update(Request $request, Pengakuanrekognisi $Pengakuanrekognisi)
+    public function update(Request $request, $id_rekognisi)
     {
         $requiredd -> validate([
       
-	   		'rekognisi_bukti' => 'required',
-	   		'wilayah'  => 'required',
-	   		'nasional'  => 'required',,
-	   		'internasional'  => 'required',
-	   		'tahun'  => 'required',
+	   		'nama_dosen' => 'required',
+            'bidang_keahlian' => 'required',
+            'rekognisi_bukti' => 'required',
+            'wilayah'  => 'required',
+            'nasional'  => 'required',
+            'internasional'  => 'required',
+            'tahun'  => 'required'
+      
 
         ]);
 
-        $Pengakuanrekognisi->update($request->all());
+        $Pengakuanrekognisi = Pengakuanrekognisi::find($id_rekognisi)->update($request->all());
 
-        return redirect()->route('Pengakuanrekognisi.index')
-                        ->with('berhasil','data sudah datadisimpan');
+        Alert::success('Sukses', 'Data Berhasil dirubah');
+        return redirect()->route('Pengakuanrekognisi.index');
+                      
     }
 
     /**
      * Remove the specified resource from storage.
     \Illuminate\Http\Response
      */
-    public function destroy(Pengakuanrekognisi $Pengakuanrekognisi)
+    public function destroy($id_rekognisi)
     {
-        $Pengakuanrekognisi->delete();
-        return redirect()->route('Pengakuanrekognisi.index')
-                        ->with('berhasil','data sudah dihapus');
+        $Pengakuanrekognisi = Pengakuanrekognisi::find($id_rekognisi)->delete();
+
+        Alert::success('Sukses', 'Data Berhasil dihapus');
+        return redirect()->route('Pengakuanrekognisi.index');
+                        
     }
 }

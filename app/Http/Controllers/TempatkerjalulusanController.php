@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tempatkerjalulusan;
+use App\Models\Prodi;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Alert;
 
 class TempatkerjalulusanController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -18,9 +18,30 @@ class TempatkerjalulusanController extends Controller
      */
     public function index()
     {
-        $Tempatkerjalulusan = Tempatkerjalulusan::latest()->paginate(10);
 
-        return view('Tempatkerjalulusan.index',compact('Tempatkerjalulusan'))
+
+       $id = Auth::user()->prodi_id;
+
+       if (auth()->user()->level=="user"){
+             $Tempatkerjalulusan = DB::table('tempat_kerja_lulusan')
+            ->where('prodi_id','=',$id)
+            ->get();
+
+
+       }
+               
+       else{
+
+        $Tempatkerjalulusan = Tempatkerjalulusan::simplepaginate(10);
+       }
+        $jml_lulus = Tempatkerjalulusan::sum('jml_lulusan');
+        $jml_terlacak = Tempatkerjalulusan::sum('jml_terlacak');
+        $lokal = Tempatkerjalulusan::sum('lokal');
+        $nasional = Tempatkerjalulusan::sum('nasional');
+        $internasional = Tempatkerjalulusan::sum('internasional');
+        
+        $prodi = Prodi::all();
+        return view('Tempatkerjalulusan.index',compact('Tempatkerjalulusan','id','jml_lulus','jml_terlacak','lokal','nasional','internasional'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
@@ -31,7 +52,8 @@ class TempatkerjalulusanController extends Controller
      */
     public function create()
     {
-        return view('Tempatkerjalulusan.create');
+        $id = Auth::user()->prodi_id;
+        return view('Tempatkerjalulusan.create', compact('id'));
     }
 
     /**
@@ -42,19 +64,20 @@ class TempatkerjalulusanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-         
+        $request->validate([     
         'tahun_lulus' => 'required',
-    	'jml_lulusan'=> 'required',
-    	'jml_lulusan_terlacak'=> 'required',
-    	'lokal'=> 'required',
-    	'nasional'=> 'required',
-    	'internasional' => 'required'
+        'jml_lulusan' => 'required',
+        'jml_terlacak' => 'required',
+        'lokal' => 'required',
+        'nasional' => 'required',
+        'internasional' => 'required',
+        'prodi_id'
         ]);
 
         Tempatkerjalulusan::create($request->all());
-        return redirect()->route('Tempatkerjalulusan.index')
-                        ->with('berhasil','datadisimpan');
+        Alert::success('Sukses', 'Data Berhasil Disimpan');
+        return redirect()->route('Tempatkerjalulusan.index');
+                        
     }
 
     /**
@@ -63,7 +86,7 @@ class TempatkerjalulusanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Tempatkerjalulusan $Tempatkerjalulusan)
+    public function show(Pkmdtpsmhs $Tempatkerjalulusan)
     {
         return view('Tempatkerjalulusan.show', compact('Tempatkerjalulusan'));
     }
@@ -74,7 +97,7 @@ class TempatkerjalulusanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tempatkerjalulusan $Tempatkerjalulusan)
+    public function edit(Pkmdtpsmhs $Tempatkerjalulusan)
     {
         return view ('Tempatkerjalulusan.edit', compact('Tempatkerjalulusan'));
     }
@@ -86,34 +109,35 @@ class TempatkerjalulusanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tempatkerjalulusan $Tempatkerjalulusan)
+    public function update(Request $request, $id_tkl)
     {
-        $required -> validate([
-         
-        'tahun_lulus' => 'required',
-    	'jml_lulusan'=> 'required',
-    	'jml_lulusan_terlacak'=> 'required',
-    	'lokal'=> 'required',
-    	'nasional'=> 'required',
-    	'internasional' => 'required'
+        $request -> validate([
+        'tahun_lulus',
+        'jml_lulusan' => 'required',
+        'jml_terlacak' => 'required',
+        'lokal' => 'required',
+        'nasional' => 'required',
+        'internasional' => 'required'
+
         ]);
 
-        $Tempatkerjalulusan->update($request->all());
-
-        return redirect()->route('Tempatkerjalulusan.index')
-                        ->with('berhasil','data sudah datadisimpan');
+        $Tempatkerjalulusan = Tempatkerjalulusan::find($id_tkl)->update($request->all());
+        Alert::success('Sukses', 'Data Berhasil Disimpan');
+        return redirect()->route('Tempatkerjalulusan.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @retu
+     rn \Illuminate\Http\Response
      */
-    public function destroy(Tempatkerjalulusan $Tempatkerjalulusan)
-    {
-        $Tempatkerjalulusan->delete();
-        return redirect()->route('Tempatkerjalulusan.index')
-                        ->with('berhasil','data sudah dihapus');
-    }
+     public function destroy($id_tkl)
+        {
+            $Tempatkerjalulusan = Tempatkerjalulusan::find($id_tkl)->delete();
+            Alert::success('Sukses', 'Data Berhasil Dihapus');
+            return redirect()->route('Tempatkerjalulusan.index');               
+        }
 }
+

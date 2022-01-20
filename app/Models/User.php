@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
+
 
 class User extends Authenticatable
 {
@@ -21,6 +23,9 @@ class User extends Authenticatable
         'email',
         'level',
         'password',
+        'image',
+        'prodi_id',
+        'fakul_id'
     ];
 
     /**
@@ -44,11 +49,15 @@ class User extends Authenticatable
 
         public function adminlte_image()
     {
-        return '/images/abi.jpeg';
+        if (auth()->user()->level=='admin'); {
+            return '/images/abi.jpeg';
+        }
+        
+        return asset('storage/'. auth::user()->image);
     }
 
     public function adminlte_desc()
-    {
+    { 
         return 'That\'s a nice guy';
     }
 
@@ -60,5 +69,10 @@ class User extends Authenticatable
     public function Prodi()
     {
         return $this->belongsTo(Prodi::class);
+    }
+
+     public function Approve()
+    {
+        return $this->belongsTo(Approve::class);
     }
 }
